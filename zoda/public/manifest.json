@@ -1,0 +1,16 @@
+{
+    "name": "Readify.africa",
+    "short_name": "Readify",
+    "start_url": "/",
+    "background_color": "#000000",
+    "description": "Earn Free Data Reading Articles.",
+    "display": "fullscreen",
+    "theme_color": "#000000",
+    "icons": [
+        {
+            "src": "logo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
