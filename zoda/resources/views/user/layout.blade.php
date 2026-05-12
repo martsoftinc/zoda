@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PaidReader.app - Earn Cash Reading Articles</title>
+    <title>Koda.africa - Earn Cash Reading Articles</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- PWA -->
     <meta name="theme-color" content="#10b981">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="PaidReader.app">
+    <meta name="apple-mobile-web-app-title" content="Koda.africa">
     <link rel="apple-touch-icon" href="{{ asset('images/icon-192.png') }}">
     <link rel="manifest" href="{{ asset('manifest.json') }}">
 
@@ -215,7 +215,7 @@
                 <div class="w-8 h-8 rounded-xl bg-brand-500 flex items-center justify-center shadow-md shadow-brand-500/30">
                     <i class="fas fa-book-open text-white text-sm"></i>
                 </div>
-                <span class="font-bold text-lg text-gray-900 dark:text-white">PaidReader<span class="text-brand-500">.app</span></span>
+                <span class="font-bold text-lg text-gray-900 dark:text-white">Koda<span class="text-brand-500">.africa</span></span>
             </a>
         </div>
 
@@ -229,7 +229,7 @@
                 </div>
                 <p class="font-bold text-sm leading-tight">{{ auth()->user()->name }}</p>
                 @if($credit ?? false)
-                    <p class="text-brand-100 text-xs mt-0.5">{{ number_format($credit->credit ?? 0) }} pts</p>
+                    <p class="text-brand-100 text-xs mt-0.5">{{ number_format($credit->credit ?? 0) }} </p>
                 @else
                     <p class="text-brand-100 text-xs mt-0.5">Welcome back!</p>
                 @endif
@@ -259,13 +259,13 @@
                 <span class="icon" style="background:#fee2e2;color:#ef4444;">
                     <i class="fas fa-money-bill-wave"></i>
                 </span>
-                <span>Redeem</span>
+                <span>Withdraw</span>
                 <span class="ml-auto bg-danger text-white text-xs font-bold px-2 py-0.5 rounded-full badge-pulse">Cash</span>
             </a>
 
             <p class="text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-widest px-3 mb-2 mt-4">Support</p>
 
-            <a href="/contact" class="nav-item">
+            <a href="/contact" target="_blank"  class="nav-item">
                 <span class="icon"><i class="fas fa-envelope"></i></span> Contact Us
             </a>
             <div class="nav-item" onclick="confirmLogout()">
@@ -286,7 +286,7 @@
 
         {{-- Version --}}
         <div class="px-5 pb-5">
-            <p class="text-xs text-gray-400 dark:text-gray-600 font-mono">PaidReader.app v2.0</p>
+            <p class="text-xs text-gray-400 dark:text-gray-600 font-mono">Koda.africa v2.0</p>
         </div>
     </aside>
 
@@ -365,7 +365,7 @@
             <i class="fas fa-home"></i><span>Home</span>
         </a>
         <a href="/choose" class="bottom-tab {{ request()->is('choose') ? 'active' : '' }}">
-            <i class="fas fa-dollar-sign"></i><span>Redeem</span>
+            <i class="fas fa-dollar-sign"></i><span>Withdraw</span>
         </a>
         <a href="/referrals" class="bottom-tab {{ request()->is('referrals') ? 'active' : '' }}">
             <i class="fas fa-users"></i><span>Referrals</span>

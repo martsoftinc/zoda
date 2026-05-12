@@ -6,32 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('momo_withdrawal', function (Blueprint $table) {
+        Schema::create('mpesa_withdrawals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('network');                          // mtn | tigo | telecel
             $table->string('phone', 20);
             $table->string('name');
             $table->decimal('amount', 10, 2);
             $table->enum('status', ['pending', 'processing', 'completed', 'failed'])
                   ->default('pending');
-            $table->text('notes')->nullable();                  // admin remarks
+            $table->text('notes')->nullable();
             $table->timestamp('processed_at')->nullable();
             $table->timestamps();
         });
-         
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('momo_withdrawal');
+        Schema::dropIfExists('mpesa_withdrawals');
     }
 };

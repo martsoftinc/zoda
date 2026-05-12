@@ -168,18 +168,39 @@ class TopupController extends Controller
         return redirect()->back()->with('error', 'Topup failed. Try again later.');
     }
 
-    public function choose()
-    {
-        $users = Auth::user();       
-        $credit = DB::table('credit')
-                 ->where('user_id',$users->id)
-                 ->first();
-        switch($users->country){
-            case 'GH':
-        }
-
-        return view('user.choose',compact('credit'));
+public function choose()
+{
+    $users = Auth::user();       
+    $credit = DB::table('credit')
+             ->where('user_id', $users->id)
+             ->first();
+    
+    switch($users->country){
+        case 'GH':
+            // Route to Momo (Mobile Money) for Ghana
+            return redirect()->route('momo')->with('credit', $credit);
+            break;
+            
+        case 'KE':
+            // Route to Mpesa for Kenya
+            return redirect()->route('mpesa.index')->with('credit', $credit);
+            break;
+            
+        case 'NG':
+            // Route to Nigeria payment
+            return redirect()->route('bank.nigeria.index')->with('credit', $credit);
+            break;
+            
+        case 'ZA':
+            // Route to South Africa payment
+            return redirect()->route('bank.southafrica.index')->with('credit', $credit);
+            break;
+            
+        default:
+            // Default case for unsupported countries
+            return redirect()->route('payment.not-supported')->with('error', 'Payment method not available for your country');
     }
+}
 
 
     public function showWithdrawForm()

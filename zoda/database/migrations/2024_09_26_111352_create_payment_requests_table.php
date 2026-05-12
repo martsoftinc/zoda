@@ -15,6 +15,13 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('amount');
+            $table->string('fullname')->nullable();
+            $table->string('type')->nullable();
+            $table->string('momo_number')->nullable();
+            $table->string('mpesa_number')->nullable();
+            $table->string('bank_account_number')->nullable();
+            $table->string('bank_name')->nullable();
+            $table->string('bank_code')->nullable();
             $table->string('status')->default('pending');
             $table->timestamps();
 

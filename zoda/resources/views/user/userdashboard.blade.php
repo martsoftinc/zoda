@@ -42,20 +42,20 @@
                                 'GH' => 'GH&#8373;', 'NG' => '&#8358;', 'KE' => 'Ksh', 'ZA' => 'R', default => '$'
                             };
                         @endphp
-                        {!! $currency !!}{{ number_format($credit->credit ?? 0) }}
-                    @else
+                        {!! $currency !!}{{ number_format($credit->credit ?? 0, 2) }}
+                        @else
                         $0
                     @endif
                 </p>
-                @php $pts = $credit->credit ?? 0; $pct = min(100, ($pts / 500) * 100); @endphp
-                <div class="mt-3 progress-bar">
+                <!--@php $pts = $credit->credit ?? 0; $pct = min(100, ($pts / 500) * 100); @endphp
+                 <div class="mt-3 progress-bar">
                     <div class="progress-fill" style="width: {{ $pct }}%"></div>
                 </div>
-                <p class="text-xs text-gray-400 dark:text-gray-600 mt-1.5">{{ $pts }} / 500 pts to next milestone</p>
+                <p class="text-xs text-gray-400 dark:text-gray-600 mt-1.5">{{ $pts }} / 500 pts to next milestone</p>-->
             </div>
         </div>
 
-        {{-- Referral Bonus --}}
+        {{-- total paid --}}
         <div class="stat-glow-gold bg-white dark:bg-gray-900 rounded-3xl p-5 relative overflow-hidden border border-gray-100 dark:border-gray-800">
             <div class="absolute -top-5 -right-5 w-24 h-24 bg-amber-400/10 rounded-full"></div>
             <div class="absolute -bottom-8 -left-4 w-20 h-20 bg-amber-400/5 rounded-full"></div>
@@ -63,11 +63,26 @@
                 <div class="w-10 h-10 rounded-2xl bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center mb-4">
                     <i class="fas fa-star text-amber-500"></i>
                 </div>
-                <p class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1">Referral Bonus</p>
-                <p class="text-3xl font-bold text-amber-500 dark:text-amber-400 font-mono leading-none">{{ $bonus ?? 0 }}</p>
-                <a href="/referrals" class="inline-flex items-center gap-1 mt-3 text-xs font-semibold text-amber-600 dark:text-amber-400 hover:underline">
+                <p class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1">Total Withdrawn</p>
+
+                <p class="text-3xl font-bold text-amber-500 dark:text-amber-400 font-mono leading-none">
+
+                @if($credit ?? false)
+                        @php
+                            $currency = match(auth()->user()->country ?? '') {
+                                'GH' => 'GH&#8373;', 'NG' => '&#8358;', 'KE' => 'Ksh', 'ZA' => 'R', default => '$'
+                            };
+                        @endphp
+                        {!! $currency !!}{{ number_format($paid ?? 0, 2) }}
+                        @else
+                        $0
+                    @endif
+
+                    </p>
+
+               <!-- <a href="/referrals" class="inline-flex items-center gap-1 mt-3 text-xs font-semibold text-amber-600 dark:text-amber-400 hover:underline">
                     View referrals <i class="fas fa-arrow-right text-[10px]"></i>
-                </a>
+                </a> -->
             </div>
         </div>
 
@@ -180,8 +195,8 @@
                     <div class="w-10 h-10 bg-white/20 rounded-2xl flex items-center justify-center mb-3">
                         <i class="fas fa-gift text-lg"></i>
                     </div>
-                    <h3 class="text-lg font-bold leading-tight mb-1">Earn 100 pts per Referral!</h3>
-                    <p class="text-brand-100 text-sm leading-relaxed max-w-xs">Every time your referrals redeem, you automatically earn 100 bonus points.</p>
+                    <h3 class="text-lg font-bold leading-tight mb-1">Earn 50 Naira per Referral!</h3>
+                    <p class="text-brand-100 text-sm leading-relaxed max-w-xs">Refer someone and when the person finishers reading 50 articles, you earn 50 Naira.</p>
                 </div>
                 <a href="/referrals"
                    class="flex-shrink-0 bg-white text-brand-700 font-bold text-sm px-5 py-3 rounded-2xl hover:bg-brand-50 transition-colors whitespace-nowrap">

@@ -16,98 +16,103 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
     
 
-    public function handleGoogleCallback(Request $request)
-    {
-        try {
-            $googleUser = Socialite::driver('google')->user();
-            
-            // Check if user already exists by email
-            $existingUser = User::where('email', $googleUser->email)->first();
-            
+public function handleGoogleCallback(Request $request)
+{
+    try {
+        $googleUser = Socialite::driver('google')->user();
+        
+        // Check if user already exists by email
+        $existingUser = User::where('email', $googleUser->email)->first();
+        
             if ($existingUser) {
-                // User exists - log them in
+                $this->invalidateOtherSessions($existingUser);
                 \Auth::login($existingUser, true);
-                return redirect()->route('publisher'); // Adjust to your dashboard route
+
+                // Store the NEW session ID on the user record
+                $existingUser->session_id = session()->getId();
+                $existingUser->save();
+
+                return redirect()->route('publisher');
+            }
+        
+        // Create new user
+        $role = 'publisher';
+        $status = 'unverified';
+        $accountId = $this->generateUniqueAccountId();
+        
+        $user = User::create([
+            'name'       => $googleUser->name ?? $googleUser->email,
+            'email'      => $googleUser->email,
+            'country'    => $request->input('country', 'Not specified'),
+            'phone'      => $request->input('phone', 'Not provided'),
+            'age_group'  => $request->input('age_group', 'Not specified'),
+            'gender'     => $request->input('gender', 'Not specified'),
+            'tutorial'   => 'No',
+            'status'     => $status,
+            'role'       => $role,
+            'google_id'  => $googleUser->id,
+            'avatar'     => $googleUser->avatar,
+            'account_id' => $accountId,
+            'password'   => Hash::make(Str::random(16)),
+        ]);
+        
+        // Handle referral
+        if (session()->has('referral_code')) {
+            $referralCode = session()->get('referral_code');
+            $referrer = User::where('account_id', $referralCode)->first();
+            
+            if ($referrer) {
+                $user->referred_by = $referrer->account_id;
+                $user->save();
+                
+                Referral::create([
+                    'referrer_id'      => $referrer->id,
+                    'referred_user_id' => $user->id,
+                ]);
             }
             
-            // Create new user using your existing logic structure
-            $role = 'publisher';
-            $status = 'unverified';
-            
-            // Generate a unique account_id (if you're using one)
-            $accountId = $this->generateUniqueAccountId();
-            
-            $user = User::create([
-                'name' => $googleUser->name ?? $googleUser->email,
-                'email' => $googleUser->email,
-                'country' => $request->input('country', 'Not specified'), // You might want to ask this later
-                'phone' => $request->input('phone', 'Not provided'), // You might want to ask this later
-                'age_group' => $request->input('age_group', 'Not specified'),
-                'gender' => $request->input('gender', 'Not specified'),
-                'status' => $status,
-                'role' => $role,
-                'google_id' => $googleUser->id,
-                'avatar' => $googleUser->avatar,
-                'account_id' => $accountId, // If you use account_id for referrals
-                'password' => Hash::make(Str::random(16)), // Random password since Google handles auth
-            ]);
-            
-            // Handle referral if present (you'll need to pass referral code somehow)
-            // Option 1: Store referral code in session before redirecting to Google
-            if (session()->has('referral_code')) {
-                $referralCode = session()->get('referral_code');
-                $referrer = User::where('account_id', $referralCode)->first();
-                
-                if ($referrer) {
-                    $user->referred_by = $referrer->account_id;
-                    $user->save();
-                    
-                    Referral::create([
-                        'referrer_id' => $referrer->id,
-                        'referred_user_id' => $user->id,
-                    ]);
-                }
-                
-                // Clear the session
-                session()->forget('referral_code');
-            }
-            
-            // Create credits record (matching your existing logic)
-            CreditModel::create([
-                'user_id' => $user->id,
-                'credit' => 0.00,
-            ]);
-            
-            // Create payment settings record (matching your existing logic)
-            PaymentSettingsModal::create([
-                'user_id' => $user->id,
-                'method' => 'Not set yet',
-                'details' => 'Complete your payment settings',
-            ]);
-            
-            // Log the user in
-            \Auth::login($user, true);
-            
-            // Redirect to a profile completion page for missing fields
-            return redirect()->route('profile.complete')->with('success', 'Welcome! Please complete your profile.');
-            
-        } catch (\Exception $e) {
-        // 1. Log the error to storage/logs/laravel.log
+            session()->forget('referral_code');
+        }
+        
+        CreditModel::create(['user_id' => $user->id, 'credit' => 0.00]);
+        
+        PaymentSettingsModal::create([
+            'user_id' => $user->id,
+            'method'  => 'Not set yet',
+            'details' => 'Complete your payment settings',
+        ]);
+        
+        // Invalidate other sessions then log in
+        $this->invalidateOtherSessions($user);
+        Auth::login($user, true);
+        $user->session_id = session()->getId();
+        $user->save();
+        
+        return redirect()->route('profile.complete')->with('success', 'Welcome! Please complete your profile.');
+        
+    } catch (\Exception $e) {
         \Log::error('Google login error: ' . $e->getMessage());
-
-        // 2. TEMPORARY: Show error on screen so you can see why it's failing
-        // Remove this line once the error is fixed!
-        dd($e->getMessage(), $e->getTraceAsString()); 
-
-        // 3. Redirect the user back with a message
         return redirect()->route('login')->with('error', 'Google authentication failed.');
     }
-    }
+}
+
+
+
+    private function invalidateOtherSessions(User $user): void
+{
+    // Laravel stores the user_id as a payload inside the encrypted session blob,
+    // BUT the `sessions` table has a dedicated `user_id` column when you run
+    // `php artisan session:table` — we use that column for a direct delete.
+    DB::table('sessions')
+        ->where('user_id', $user->id)
+        ->delete();
+}
     
     private function generateUniqueAccountId()
     {
@@ -158,4 +163,19 @@ public function completeProfile(Request $request)
     return redirect()->route('publisher')->with('success', 'Profile completed successfully!');
 }
 
+public function showTutorialComplete()
+{
+    return view('user.watchtutorial');
+}
+
+
+public function tutorialComplete()
+{
+    $user = auth()->user();
+    $user->tutorial = 'Yes';
+    $user->save();
+
+    return redirect()->route('publisher')->with('success', 'Thank you for completing the tutorial!');
+
+}
 }

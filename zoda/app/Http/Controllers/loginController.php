@@ -31,10 +31,10 @@ class loginController extends Controller
     }
 
     public function signupAdvertiser(){
-        return view('registeradv');
+        return view('registerpub2');
     }
     public function signupPublisher(){
-        return view('registerpub');
+        return view('registerpub2');
     }
 
 
@@ -159,7 +159,7 @@ class loginController extends Controller
         */
         'phone' => 'required|string|max:255', 
         'password' => 'required|string|min:8|confirmed',
-        'cf-turnstile-response' => ['required', 'turnstile'],
+        #'cf-turnstile-response' => ['required', 'turnstile'],
     ]);
 
     if ($validator->fails()) {

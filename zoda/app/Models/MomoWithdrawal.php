@@ -23,13 +23,13 @@ class MomoWithdrawal extends Model
      */
     protected $fillable = [
         'user_id',
-        'transaction_id', 
         'network',
-        'phone_number',
-        'full_name',
+        'phone',
+        'name',
         'amount',
-        'points_required',
-        'status'
+        'status',
+        'notes',
+        'processed_at',
     ];
 
     /**

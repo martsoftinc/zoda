@@ -6,32 +6,27 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('momo_withdrawal', function (Blueprint $table) {
+        Schema::create('south_africa_bank_withdrawals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('network');                          // mtn | tigo | telecel
-            $table->string('phone', 20);
-            $table->string('name');
+            $table->string('bank_name');
+            $table->string('account_type');           // cheque | savings | transmission
+            $table->string('account_number', 11);
+            $table->string('branch_code', 6);
+            $table->string('account_name');
             $table->decimal('amount', 10, 2);
             $table->enum('status', ['pending', 'processing', 'completed', 'failed'])
                   ->default('pending');
-            $table->text('notes')->nullable();                  // admin remarks
+            $table->text('notes')->nullable();
             $table->timestamp('processed_at')->nullable();
             $table->timestamps();
         });
-         
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('momo_withdrawal');
+        Schema::dropIfExists('south_africa_bank_withdrawals');
     }
 };

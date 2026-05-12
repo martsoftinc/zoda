@@ -11,95 +11,72 @@ use Illuminate\Support\Facades\Auth;
 class MomoWithdrawalController extends Controller
 {
     
-    public function store(Request $request)
-{
-    try {
-        // Log all incoming data
-        \Log::info('=== MOMO WITHDRAWAL DEBUG ===');
-        \Log::info('Request data:', $request->all());
-        
-        // Validate the request
+   public function store(Request $request)
+    {
+        $user = Auth::user();
+ 
+        // ── 1. Fetch current balance ─────────────────────────────
+        $credit = DB::table('credit')
+            ->where('user_id', $user->id)
+            ->lockForUpdate()   // prevent race conditions
+            ->first();
+ 
+        $balance = (float) ($credit->credit ?? 0);
+ 
+        // ── 2. Validate input ────────────────────────────────────
         $validated = $request->validate([
-            'network' => 'required|in:mtn,tigo,telecel',
-            'phone' => 'required|string|max:15',
-            'name' => 'required|string|max:255',
-            
-            'amount' => 'required|numeric|min:10',
-            'points_required' => 'required|integer|min:2000',
-            'terms' => 'required|accepted'
+            'network' => ['required', 'in:mtn,tigo,telecel'],
+            'phone'   => ['required', 'string', 'regex:/^\d{2}\s?\d{3}\s?\d{4}$/'],
+            'name'    => ['required', 'string', 'max:255'],
+            'amount'  => [
+                'required',
+                'numeric',
+                'min:30',
+                function ($attribute, $value, $fail) use ($balance) {
+                    if ((float) $value > $balance) {
+                        $fail('The withdrawal amount exceeds your available balance of GHS ' . number_format($balance, 2) . '.');
+                    }
+                },
+            ],
+            'terms'   => ['accepted'],
+        ], [
+            'network.required' => 'Please select a network provider.',
+            'network.in'       => 'Invalid network provider selected.',
+            'phone.required'   => 'Please enter your phone number.',
+            'phone.regex'      => 'Phone number must be 9 digits (e.g. 24 123 4567).',
+            'name.required'    => 'Please enter your full name.',
+            'amount.required'  => 'Please enter a withdrawal amount.',
+            'amount.numeric'   => 'Amount must be a valid number.',
+            'amount.min'       => 'Minimum withdrawal amount is GHS 30.',
+            'terms.accepted'   => 'You must accept the terms before withdrawing.',
         ]);
-
-        \Log::info('Validation passed', $validated);
-
-        // Get user's current points - with more detailed fetching
-        $userId = auth()->id();
-        \Log::info('User ID: ' . $userId);
-        
-        // Try different ways to get the credit
-        $credit = CreditModel::where('user_id', $userId)->first();
-        
-        if (!$credit) {
-           // \Log::error('No credit record found for user');
-            return back()->with('error', 'No points record found. Please contact support.')->withInput();
-        }
-        
-        
-        
-        $userPoints = $credit->credit ?? 0;
-        $pointsRequired = (int)$validated['points_required'];
-        
-        
-
-        if ($userPoints < $pointsRequired) {
-            return back()->with('error', "Insufficient points. You have " . number_format($userPoints) . " points but need " . number_format($pointsRequired) . " points.")->withInput();
-        }
-
-        // Rest of your code...
-        DB::beginTransaction();
-
-        try {
-            // Create withdrawal record
-            $withdrawal = MomoWithdrawal::create([
-                'user_id' => $userId,
-                'transaction_id' => null,
+ 
+        $amount = (float) $validated['amount'];
+ 
+        // ── 3. Wrap everything in a transaction ──────────────────
+        DB::transaction(function () use ($user, $validated, $amount, $credit) {
+ 
+            // 3a. Deduct from credit table
+            DB::table('credit')
+                ->where('user_id', $user->id)
+                ->decrement('credit', $amount);
+ 
+            // 3b. Store the withdrawal record
+            MomoWithdrawal::create([
+                'user_id' => $user->id,
                 'network' => $validated['network'],
-                'phone_number' => $validated['phone'],
-                'full_name' => $validated['name'],
-                'amount' => $validated['amount'],
-                'points_required' => $pointsRequired,
-                'status' => 'pending'
+                'phone'   => preg_replace('/\s+/', '', $validated['phone']), // strip spaces
+                'name'    => $validated['name'],
+                'amount'  => $amount,
+                'status'  => 'pending',
             ]);
-
-            // \Log::info('Withdrawal created:', ['withdrawal_id' => $withdrawal->id]);
-
-            // Deduct points
-            $credit->credit = $credit->credit - $pointsRequired;
-            $credit->save();
-            
-            // \Log::info('Points deducted. New balance:', ['new_balance' => $credit->credit]);
-
-            DB::commit();
-
-            return redirect()->route('momo', ['id' => $withdrawal->id])
-                ->with('success', 'Your withdrawal request has been submitted successfully, Check your History page.');
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            // \Log::error('Transaction failed: ' . $e->getMessage());
-            // \Log::error($e->getTraceAsString());
-            
-            return back()->with('error', 'Transaction failed: ' . $e->getMessage())->withInput();
-        }
-
-    } catch (\Illuminate\Validation\ValidationException $e) {
-      //  \Log::error('Validation failed:', $e->errors());
-        return back()->withErrors($e->errors())->withInput();
-    } catch (\Exception $e) {
-       // \Log::error('Unexpected error: ' . $e->getMessage());
-       // \Log::error($e->getTraceAsString());
-        return back()->with('error', 'An unexpected error occurred. Please try again.')->withInput();
+        });
+ 
+        return redirect()->route('payments')
+            ->with('success', 'Withdrawal request of GHS ' . number_format($amount, 2) . ' submitted successfully! It will be processed within 24–48 hours.');
     }
-}
+
+
     /**
      * Show withdrawal success page.
      */

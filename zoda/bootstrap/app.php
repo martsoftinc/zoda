@@ -28,6 +28,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'mobile' => \App\Http\Middleware\MobileMiddleware::class,
             'advertiser' => \App\Http\Middleware\AdvertiserMiddleware::class,
             'completeprofile' => \App\Http\Middleware\CompleteProfile::class,
+            'tutorial' => \App\Http\Middleware\TutorialMiddleware::class,
+            'single.session' => \App\Http\Middleware\EnforceSingleSession::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

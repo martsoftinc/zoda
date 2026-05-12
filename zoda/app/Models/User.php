@@ -29,6 +29,7 @@ class User extends Authenticatable
         'phone',
         'age_group',
         'gender',
+        'tutorial',
         'status'
         
         

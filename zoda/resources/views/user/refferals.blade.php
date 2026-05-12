@@ -91,7 +91,7 @@
                         <i class="fas fa-gift text-xl"></i>
                     </div>
                     <h2 class="text-2xl font-bold leading-tight mb-1">Your Referral Link</h2>
-                    <p class="text-brand-100 text-sm">Share and earn <strong class="text-white">100 points</strong> every time your referral withdraws</p>
+                    <p class="text-brand-100 text-sm">Share and earn 50 Naira for each successful referral</p>
                 </div>
                 <div id="referralCopySuccess" class="hidden bg-white/20 border border-white/30 text-white text-xs font-semibold px-3 py-2 rounded-2xl flex items-center gap-2 flex-shrink-0">
                     <i class="fas fa-check-circle"></i> Copied!

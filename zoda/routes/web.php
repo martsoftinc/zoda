@@ -12,6 +12,10 @@ use App\Http\Controllers\CashController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\MomoWithdrawalController;
 use App\Http\Controllers\BinanceWithdrawalController;
+use App\Http\Controllers\CashoutController;
+use App\Http\Controllers\MpesaController;
+use App\Http\Controllers\Nigeriabankcontroller;
+use App\Http\Controllers\SouthAfricaBankController;
 use Laravel\Socialite\Facades\Socialite;
 
 
@@ -23,6 +27,11 @@ Route::get('auth/google', function () {
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/nigeria', function () {
+    return view('user.redeemcash.nigeria');
+});
+
 
 Route::get('/tutorial', function () {
     return view('tutorial');
@@ -49,8 +58,7 @@ Route::get('/signup-publisher', function () {
 Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
 Route::get('/auth/google/{referralCode?}', [AuthController::class, 'redirectToGoogleWithReferral'])->name('google.login');
 
-Route::get('/profile/complete', [AuthController::class, 'showCompleteForm'])->name('profile.complete');
-Route::post('/profile/complete', [AuthController::class, 'completeProfile']);
+
 
 
 Route::get('/refresh-task-list', [PublisherController::class, 'refreshTaskList'])->name('refreshTaskList');
@@ -122,8 +130,13 @@ Route::get('resetpage/{token}', [loginController::class, 'showResetPage'])->name
 Route::post('resetpage', [loginController::class, 'reset'])->name('reset');
 });
 
+Route::middleware(['auth'])->group(function () {
+Route::get('/profile/complete', [AuthController::class, 'showCompleteForm'])->name('profile.complete');
+Route::post('/profile/complete', [AuthController::class, 'completeProfile']);
+});
+
 //publishers add mobile to meddleware
-Route::middleware(['auth', 'publisher',])->group(function () {
+Route::middleware(['auth','completeprofile', 'single.session','tutorial', 'publisher',])->group(function () {
 Route::get('/publisher', [publisherController::class, 'publisherDashboard'])->name('publisher');
 Route::get('/payments', [publisherController::class, 'payments'])->name('payments');
 Route::post('/payments/settings', [publisherController::class, 'PaymentMethodSettings'])->name('paymentsettings');
@@ -141,6 +154,9 @@ Route::post('/profile/verify-code', [publisherController::class, 'verifyPassword
 Route::post('/profile/update-password', [publisherController::class, 'updatePassword'])->name('profile.updatePassword');
 Route::get('/referrals', [publisherController::class, 'referrals']);
 
+#Route::get('/profile/complete', [AuthController::class, 'showCompleteForm'])->name('profile.complete')->withoutMiddleware(CompleteProfileMiddleware::class);
+#Route::post('/profile/complete', [AuthController::class, 'completeProfile'])->withoutMiddleware(CompleteProfileMiddleware::class);
+
 Route::post('/clear-task-session', [publisherController::class, 'clearTaskSession'])
     ->name('clear.task.session');
 
@@ -157,6 +173,27 @@ Route::get('/momo', [CashController::class, 'momo'])->name('momo');
 Route::post('/momo', [MomoWithdrawalController::class, 'store'])->name('momo.store');
 Route::get('/binance', [BinanceWithdrawalController::class, 'index'])->name('binance');
 Route::post('/binance', [BinanceWithdrawalController::class, 'store'])->name('binance.store');
+
+Route::get('/watch-tutorial', [AuthController::class, 'showTutorialComplete'])->name('tutorial.page');
+Route::post('/watch-tutorial', [AuthController::class, 'tutorialComplete'])->name('tutorial.complete');
+
+
+//Mpesa routes
+Route::get('/mpesa', [MpesaController::class, 'index'])->name('mpesa.index');
+Route::post('/mpesa', [MpesaController::class, 'store'])->name('mpesa.store');
+
+// Nigeria bank transfer routes
+Route::get('/withdraw/nigeria-bank', [NigeriaBankController::class, 'index'])->name('bank.nigeria.index');
+Route::post('/withdraw/nigeria-bank', [NigeriaBankController::class, 'store'])->name('bank.nigeria.store');
+
+
+// South africa bank transfer routes
+Route::get('/withdraw/south-africa', [SouthAfricaBankController::class, 'index'])->name('bank.southafrica.index');
+Route::post('/withdraw/south-africa', [SouthAfricaBankController::class, 'store'])->name('bank.southafrica.store');
+
+
+
+
 
 });
 

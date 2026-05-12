@@ -14,60 +14,21 @@ use Illuminate\Support\Facades\Log;
 
 class CashController extends Controller
 {
-    public function momo(){
-        $users = Auth::user();       
-        $credit = DB::table('credit')
-                 ->where('user_id',$users->id)
-                 ->first();
-        return view("user.redeemcash.momo");
-    }
-
-    public function nigeria(){
-        $users = Auth::user();       
-        $credit = DB::table('credit')
-                 ->where('user_id',$users->id)
-                 ->first();
-        return view("user.redeemcash.nigeria");
-    }
-
-    public function southafrica(){
-        $users = Auth::user();       
-        $credit = DB::table('credit')
-                 ->where('user_id',$users->id)
-                 ->first();
-        return view("user.redeemcash.southafrica");
-    }
-
-    public function mpesa(){
-        $users = Auth::user();       
-        $credit = DB::table('credit')
-                 ->where('user_id',$users->id)
-                 ->first();
-        return view("user.redeemcash.mpesa");
-    }
-
+public function momo(){
+    $users = Auth::user();       
+    $credit = DB::table('credit')
+             ->where('user_id', $users->id)
+             ->first();
     
-    public function mozambique(){
-        $users = Auth::user();       
-        $credit = DB::table('credit')
-                 ->where('user_id',$users->id)
-                 ->first();
-        return view("user.redeemcash.mozambique");
+    // Check if user is from Ghana (GH)
+    if ($users->country !== 'GH') {
+        return redirect()->to('/choose')->with('error', 'This page is only available for users in Ghana');
     }
+    
+    return view("user.redeemcash.momo", compact('credit'));
+}
+ 
 
-    public function ethiopia(){
-        $users = Auth::user();       
-        $credit = DB::table('credit')
-                 ->where('user_id',$users->id)
-                 ->first();
-        return view("user.redeemcash.ethiopia");
-    }
-
-    public function tanzania(){
-        $users = Auth::user();       
-        $credit = DB::table('credit')
-                 ->where('user_id',$users->id)
-                 ->first();
-        return view("user.redeemcash.tanzania");
-    }
+  
+  
 }

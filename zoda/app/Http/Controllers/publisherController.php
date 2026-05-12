@@ -74,7 +74,7 @@ $tasks = campaignModel::query()
     ->where('status', 'Approved')
     ->orderByDesc('cpc')
     ->inRandomOrder()
-    ->limit(10)
+    ->limit(5)
     ->get();
 
   
@@ -125,15 +125,24 @@ foreach ($tasks as $task) {
                  ->where('user_id',$users->id)
                  ->first(); 
 
-         $paid = DB::table('payment_requests')
-                 ->where('user_id',$users->id)
-                  ->where('status','paid')
-                 ->sum('amount');          
+        $withdrawalTable = match ($users->country) {
+            'KE'    => 'mpesa_withdrawals',
+            'NG'    => 'nigeria_bank_withdrawals',
+            'ZA'    => 'south_africa_bank_withdrawals',
+            default => 'momo_withdrawal', // GH and fallback
+        };
+ 
+            $paid = DB::table($withdrawalTable)
+                    ->where('user_id', $users->id)
+                    ->where('status', 'completed')
+                    ->sum('amount');       
         
         $bonus = Referral::with('referredUser')
                         ->where('referrer_id', $users->id)                      
                         ->sum('referral_earnings');
 
+
+        
         return view('user.userdashboard',compact('tasks','credit','paid','bonus'));
     }
 
@@ -207,8 +216,8 @@ foreach ($tasks as $task) {
 }
 
 
-            // Verify code
-    public function verifyCode(Request $request){
+    // Verify code and earn rewards
+public function verifyCode(Request $request){
                 $request->validate([
                 'verificationCode' => 'required|string',
                 ]);
@@ -269,37 +278,37 @@ foreach ($tasks as $task) {
                         $cpc = DB::table('campaigns')->where('id', $jobId)->value('cpc');
                         Log::info('CPC value: ' . $cpc);
 
-                        $userearnings = 10;
+                        #$userearnings = 10;
                         #$adminearnings = $cpc * 0/100;
                         #$advertiserDeduction = 0.00;
-                        /*
+                        
                             if ($user->country === 'GH') { // Ghana
-                                $advertiserDeduction = 0.002;
+                                $userearnings = 0.5;
                             } elseif ($user->country === 'ZA') { // South Africa
-                                $advertiserDeduction = 0.01;
+                                $userearnings = 0.10;
                             } elseif ($user->country === 'NG') { // Nigeria
-                                $advertiserDeduction = 0.005;
+                                $userearnings = 5;
                             } elseif ($user->country === 'KE') { // Kenya
-                                $advertiserDeduction = 0.003;
-                            } */
+                                $userearnings = 0.5;
+                            } 
 
                            
                            switch ($user->country) {
                                 case 'GH': // Ghana
-                                    $advertiserDeduction = 0.002;
+                                    $advertiserDeduction = 0.02;
                                     break;
                                 case 'ZA': // South Africa
-                                    $advertiserDeduction = 0.01;
+                                    $advertiserDeduction = 0.04;
                                     break;
                                 case 'NG': // Nigeria
-                                    $advertiserDeduction = 0.005;
+                                    $advertiserDeduction = 0.03;
                                     break;
                                 case 'KE': // Kenya
-                                    $advertiserDeduction = 0.003;
+                                    $advertiserDeduction = 0.03;
                                     break;
                                     default:
                                     // All other countries
-                                    $advertiserDeduction = 0.002;
+                                    $advertiserDeduction = 0.05;
                                     break;
                             }
 
@@ -307,13 +316,13 @@ foreach ($tasks as $task) {
                             // Add credit to admin
 
                             if ($user->country === 'GH') { // Ghana
-                                $adminearnings = 0.5;
-                            } elseif ($user->country === 'ZA') { // South Africa
-                                $adminearnings = 0.03;
-                            } elseif ($user->country === 'NG') { // Nigeria
                                 $adminearnings = 0.02;
+                            } elseif ($user->country === 'ZA') { // South Africa
+                                $adminearnings = 0.04;
+                            } elseif ($user->country === 'NG') { // Nigeria
+                                $adminearnings = 0.03;
                             } elseif ($user->country === 'KE') { // Kenya
-                                $adminearnings = 0.01;
+                                $adminearnings = 0.03;
                             }
 
                         // Add credit to admin
@@ -406,38 +415,81 @@ return redirect()->route('publisher')->with('error', 'Job not found.');
  // Update user payment method settings    
 public function Payments(){
     $user = Auth::user();
-
-       
+ 
     $paymentSettings = PaymentSettingsModal::where('user_id', $user->id)->first();
-      
+ 
     $user_balance = DB::table('credit')
-                    ->where('user_id', $user->id)  
-                    ->first(); 
-
+                    ->where('user_id', $user->id)
+                    ->first();
+ 
     $payment_method = DB::table('payment_method')
-                    ->where('user_id', $user->id)  
-                    ->first(); 
-
+                    ->where('user_id', $user->id)
+                    ->first();
+ 
     $payment_requests = DB::table('payment_requests')
-                    ->where('user_id', $user->id)  
+                    ->where('user_id', $user->id)
                     ->orderBy('created_at', 'desc')
-                    ->paginate(5);
-
-     // Get mobile money/cash transactions (momo_withdrawal table)
-    $cash_transactions = DB::table('momo_withdrawal')
-                    ->where('user_id', $user->id)  
-                    ->orderBy('created_at', 'desc')
-                    ->paginate(5, ['*'], 'cash_page');
-                
-     // Get binance transactions (only for non-Ghana users)
-    $binance_transactions = null;
-    if($user->country != 'GH') {
-        $binance_transactions = DB::table('binance_withdrawals')
-                        ->where('user_id', $user->id)  
-                        ->orderBy('created_at', 'desc')
-                        ->paginate(5, ['*'], 'binance_page');
+                    ->paginate(20);
+ 
+    // ── Withdrawal transactions by country ──────────────────────
+ 
+    $cash_transactions      = collect();
+    $cash_stats_total       = 0;
+    $cash_stats_pending     = 0;
+    $cash_stats_success     = 0;
+ 
+    switch ($user->country) {
+ 
+        case 'GH':
+            $table = 'momo_withdrawal';
+            break;
+ 
+        case 'KE':
+            $table = 'mpesa_withdrawals';
+            break;
+ 
+        case 'NG':
+            $table = 'nigeria_bank_withdrawals';
+            break;
+ 
+        case 'ZA':
+            $table = 'south_africa_bank_withdrawals';
+            break;
+ 
+        default:
+            $table = 'momo_withdrawals';
+            break;
     }
-    return view('user.payments',compact('binance_transactions','payment_requests','paymentSettings','user_balance','payment_method','cash_transactions',));
+ 
+    $cash_transactions = DB::table($table)
+                    ->where('user_id', $user->id)
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(20, ['*'], 'cash_page');
+ 
+    $cash_stats_total = DB::table($table)
+                    ->where('user_id', $user->id)
+                    ->sum('amount');
+ 
+    $cash_stats_pending = DB::table($table)
+                    ->where('user_id', $user->id)
+                    ->where('status', 'pending')
+                    ->sum('amount');
+ 
+    $cash_stats_success = DB::table($table)
+                    ->where('user_id', $user->id)
+                    ->where('status', 'completed')
+                    ->sum('amount');
+ 
+    return view('user.payments', compact(
+        'cash_stats_total',
+        'cash_stats_pending',
+        'cash_stats_success',
+        'payment_requests',
+        'paymentSettings',
+        'user_balance',
+        'payment_method',
+        'cash_transactions',
+    ));
 }
 
 

@@ -1,171 +1,212 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}">
-    <!-- Apple Touch Icon (for iOS devices) -->
+<head>
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}">
     <link rel="apple-touch-icon" href="{{ asset('assets/img/favicon-180x180.png') }}">
-    <!-- Microsoft Windows Tiles -->
     <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon-32x32.png') }}" sizes="32x32">
     <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon-16x16.png') }}" sizes="16x16">
-    <!-- Tailwind CSS CDN -->
-    <!-- Twitter Card Meta Tags -->
+
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="PaidReader.app">
+    <meta name="twitter:site" content="Koda.africa">
     <meta name="twitter:title" content="Make Money Online Reading Articles">
-    <meta name="twitter:description" content="Join PaidReader.app to earn money by reading articles. It's the easiest way to make passive income online.">
+    <meta name="twitter:description" content="Join Koda.africa to earn money by reading articles. It's the easiest way to make passive income online.">
     <meta name="twitter:image" content="{{ asset('assets/img/banner.png') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="paidreader.app">
+    <meta property="og:url" content="koda.africa">
     <meta property="og:title" content="Make Money Online Reading Articles">
-    <meta property="og:description" content="Join PaidReader.app to earn money by reading articles. It's the easiest way to make passive income online.">
+    <meta property="og:description" content="Join Koda.africa to earn money by reading articles. It's the easiest way to make passive income online.">
     <meta property="og:image" content="{{ asset('assets/img/banner.png') }}">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    
-    <!-- Required meta tags -->
+
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    @turnstileScripts()
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <title>Login / Register Click4rand.com</title>
-  </head>
-<!-- Login 1 - Bootstrap Brain Component -->
-<div class="bg-light py-3 py-md-5">
-  <div class="container">
-    <div class="row justify-content-md-center">
-      <div class="col-12 col-md-11 col-lg-8 col-xl-7 col-xxl-6">
-        <div class="bg-white p-4 p-md-5 rounded shadow-sm">
-          <div class="row">
-            <div class="col-12">
-              <div class="text-center mb-5">
-                <a href="#!">
-                  <img src="{{asset('assets/img/logo.png')}}" alt="click4rand Logo" class="img-fluid" style="max-width: 300px;">
-                </a>
-              </div>
-            </div>
-          </div>
-         
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <title>Sign In — Koda.africa</title>
 
-          <form action="{{route('userlogin')}}" method="post">
-            @csrf
-            <div class="row gy-3 gy-md-4 overflow-hidden">
-              <div class="col-12">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-                @if (session()->has('success'))
-  <div class="alert alert-success">
-    {{ session()->get('success') }}
-  </div>
-@endif
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                    colors: {
+                        brand: { 400:'#4ade80', 500:'#22c55e', 600:'#16a34a', 700:'#15803d' }
+                    }
+                }
+            }
+        }
+    </script>
 
-  @if (session()->has('loginError'))
-  <div class="alert alert-danger">
-    {{ session()->get('loginError') }}
-  </div>
-@endif
-                <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                <div class="input-group">
-                  <span class="input-group-text">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
-                      <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
-                    </svg>
-                  </span>
-                  <input type="email" class="form-control" name="email" id="email" required>
+    <style>
+        * { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        body {
+            background: #0b1215;
+            background-image:
+                radial-gradient(ellipse 70% 50% at 20% 30%, rgba(34,197,94,0.10) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 40% at 80% 70%, rgba(34,197,94,0.06) 0%, transparent 55%);
+            min-height: 100vh;
+        }
+
+        .dot-grid {
+            background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+
+        /* Google button */
+        .btn-google {
+            background: rgba(255,255,255,0.05);
+            border: 1.5px solid rgba(255,255,255,0.10);
+            color: #fff;
+            transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-google:hover {
+            background: rgba(255,255,255,0.09);
+            border-color: rgba(255,255,255,0.18);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+        }
+        .btn-google:active { transform: translateY(0); }
+
+        /* Entrance animations */
+        @keyframes fadeUp {
+            from { opacity:0; transform:translateY(18px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+        .fade-up   { animation: fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) both; }
+        .d1 { animation-delay: .07s }
+        .d2 { animation-delay: .15s }
+        .d3 { animation-delay: .23s }
+
+        /* Subtle shimmer on the card border */
+        @keyframes borderShimmer {
+            0%   { border-color: rgba(255,255,255,0.10); }
+            50%  { border-color: rgba(34,197,94,0.22); }
+            100% { border-color: rgba(255,255,255,0.10); }
+        }
+        .card-shimmer { animation: borderShimmer 4s ease-in-out infinite; }
+
+        /* Alert */
+        .alert-danger-dark {
+            background: rgba(239,68,68,0.10);
+            border: 1px solid rgba(239,68,68,0.25);
+            color: #fca5a5;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 13.5px;
+        }
+        .alert-success-dark {
+            background: rgba(34,197,94,0.10);
+            border: 1px solid rgba(34,197,94,0.25);
+            color: #86efac;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 13.5px;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 relative overflow-x-hidden">
+
+    <div class="dot-grid fixed inset-0 pointer-events-none z-0"></div>
+
+    <div class="relative z-10 w-full max-w-sm mx-auto">
+
+        <!-- Brand -->
+        <div class="flex justify-center mb-8 fade-up">
+            <a href="/" class="flex items-center gap-2.5 group">
+                <div class="w-10 h-10 rounded-xl bg-brand-500 flex items-center justify-center shadow-lg shadow-brand-500/30 group-hover:scale-105 transition-transform">
+                    <i class="fas fa-globe-africa text-white"></i>
                 </div>
-              </div>
-
-              <div class="col-12">
-  <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
-  <div class="input-group">
-    <span class="input-group-text">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key" viewBox="0 0 16 16">
-        <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z" />
-        <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-      </svg>
-    </span>
-    <input type="password" class="form-control" name="password" id="password" value="" required>
-    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM8 13c-2.5 0-4.5-2-4.5-5S5.5 3 8 3s4.5 2 4.5 5-2 5-4.5 5z"/>
-        <path d="M8 5a3 3 0 0 0-3 3 3 3 0 1 0 6 0 3 3 0 0 0-3-3z"/>
-      </svg>
-    </button>
-  </div>
-</div>
-
-              <!-- old password form
-              <div class="col-12">
-                <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
-                <div class="input-group">
-                  <span class="input-group-text">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key" viewBox="0 0 16 16">
-                      <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z" />
-                      <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                    </svg>
-                  </span>
-                  <input type="password" class="form-control" name="password" id="password" value="" required>
-                </div>
-              </div>
-              -->
-
-              <div class="mt-4">
-        <!--<x-turnstile />
-        @error('cf-turnstile-response')
-            <span class="text-red-500">{{ $message }}</span>
-        @enderror  -->
-    </div>
-
-              <div class="col-12">
-                  <div class="d-grid">
-                      <button 
-                          class="btn btn-primary btn-lg" 
-                          type="submit" 
-                          onclick="this.disabled=true; this.innerText='Logging in...'; this.form.submit();">
-                          Log In
-                      </button>
-                  </div>
-              </div>
-            </div>
-          </form>
-          <div class="row">
-            <div class="col-12">
-              <hr class="mt-5 mb-4 border-secondary-subtle">
-              <div class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-center">
-                <a href="/signup-publisher" class="link-secondary text-decoration-none">Create new account</a>
-                <a href="/resetpassword" class="link-secondary text-decoration-none">Forgot password</a>
-              </div>
-            </div>
-          </div>
+                <span class="font-bold text-xl text-white">Koda<span class="text-brand-400">.africa</span></span>
+            </a>
         </div>
-      </div>
+
+        <!-- Card -->
+        <div class="fade-up d1 card-shimmer rounded-3xl p-7 sm:p-9 shadow-2xl" style="background: #111d20; border: 1px solid rgba(255,255,255,0.10);">
+
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <div class="w-14 h-14 rounded-2xl bg-brand-500/15 border border-brand-500/25 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-right-to-bracket text-brand-400 text-xl"></i>
+                </div>
+                <h1 class="text-2xl font-extrabold text-white mb-1.5">Welcome back</h1>
+                <p class="text-gray-400 text-sm leading-relaxed">Sign in to your Koda.africa account to continue earning.</p>
+            </div>
+
+            <!-- Session messages -->
+            @if (session()->has('success'))
+                <div class="alert-success-dark flex items-center gap-2.5 mb-5">
+                    <i class="fas fa-circle-check text-green-400 flex-shrink-0"></i>
+                    {{ session()->get('success') }}
+                </div>
+            @endif
+
+            @if (session()->has('loginError'))
+                <div class="alert-danger-dark flex items-center gap-2.5 mb-5">
+                    <i class="fas fa-circle-exclamation text-red-400 flex-shrink-0"></i>
+                    {{ session()->get('loginError') }}
+                </div>
+            @endif
+
+            <!-- Google Sign-In -->
+            <a href="/auth/google"
+               id="google-btn"
+               class="btn-google w-full flex items-center justify-center gap-3.5 py-4 px-5 rounded-2xl font-bold text-base cursor-pointer select-none"
+               onclick="handleGoogleClick(this)">
+
+                <!-- Google "G" logo SVG -->
+                <svg width="20" height="20" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0">
+                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                    <path fill="none" d="M0 0h48v48H0z"/>
+                </svg>
+
+                <span id="google-btn-text">Continue with Google</span>
+            </a>
+
+            <!-- Divider note -->
+            <p class="text-center text-xs text-gray-600 mt-5 leading-relaxed">
+                By signing in you agree to our
+                <a href="/terms" class="text-gray-500 hover:text-brand-400 transition-colors underline underline-offset-2">Terms of Service</a>
+                and
+                <a href="/privacy" class="text-gray-500 hover:text-brand-400 transition-colors underline underline-offset-2">Privacy Policy</a>.
+            </p>
+
+        </div>
+
+        <!-- Footer -->
+        <p class="text-center text-xs text-white/15 mt-6">
+            &copy; 2026 Koda.africa
+        </p>
+
     </div>
-  </div>
-</div>
 
-<script>
-  const togglePassword = document.querySelector('#togglePassword');
-  const password = document.querySelector('#password');
+    <script>
+        function handleGoogleClick(el) {
+            el.innerHTML = `
+                <svg class="animate-spin flex-shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.2)" stroke-width="3"/>
+                    <path d="M12 2a10 10 0 0 1 10 10" stroke="#22c55e" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                <span>Redirecting to Google…</span>
+            `;
+            el.style.pointerEvents = 'none';
+            el.style.opacity = '0.7';
+        }
 
-  togglePassword.addEventListener('click', function () {
-    // Toggle the type attribute
-    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-    password.setAttribute('type', type);
-    
-    // Toggle the eye icon
-    this.querySelector('svg').classList.toggle('bi-eye');
-    this.querySelector('svg').classList.toggle('bi-eye-slash');
-  });
-</script>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-   
-
- 
-  </body>
+        // Spin animation via a style tag (Tailwind CDN doesn't always include it)
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin { to { transform: rotate(360deg); } }
+            .animate-spin { animation: spin 0.8s linear infinite; }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
 </html>

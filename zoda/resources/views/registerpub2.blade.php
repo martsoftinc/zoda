@@ -53,7 +53,7 @@
                 @endif
 
           <!-- form fields-->
-          <form action="{{route('profile.complete')}}" method="post">
+          <form action="{{route('createUser')}}" method="post">
             @csrf 
 
             <div class="row gy-3 gy-md-4 overflow-hidden">
@@ -81,7 +81,7 @@
                   </span>
                   <input type="text" class="form-control" name="phone" id="lastName" >
                 </div>
-              </div> 
+              </div> -->
               <div class="col-12">
                 <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                 <div class="input-group">
@@ -92,7 +92,7 @@
                   </span>
                   <input type="email" class="form-control" name="email" id="email" required>
                 </div>
-              </div>-->
+              </div>
 
 
               <div class="col-12">
@@ -164,7 +164,7 @@
                     </svg>
                  </span>
                               <select name="country" id="country" class="form-control" required>
-                                  <option value="" disabled selected>Select your country</option>
+                                  <option value="">Select your country</option>
                                   @foreach(\App\Models\Country::all() as $country)
                                      @if(in_array($country->code, ['NG', 'ZA', 'GH', 'KE']))
                                           <option value="{{ $country->code }}">{{ $country->name }}</option>
@@ -230,7 +230,7 @@
 
 
 
-              
+              -->
 
 
                 
@@ -269,7 +269,6 @@
 
              
               
-             -->
 
               
 
@@ -282,11 +281,11 @@
                     I agree to the <a href="terms" class="link-primary text-decoration-none" target="_bank">terms and conditions</a>
                   </label>
                 </div>
-              </div><!-- 
+              </div>
               <div class="mt-4">
-         <x-turnstile /> 
+         <!--<x-turnstile />  -->
        
-    </div> -->
+    </div>
 
               <div class="col-12">
                 <div class="d-grid">
@@ -295,7 +294,12 @@
               </div>
             </div>
           </form>
-          
+          <div class="row">
+            <div class="col-12">
+              <hr class="mt-5 mb-4 border-secondary-subtle">
+              <p class="m-0 text-secondary text-center">Already have an account? <a href="/login" class="link-primary text-decoration-none">Sign in</a></p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
