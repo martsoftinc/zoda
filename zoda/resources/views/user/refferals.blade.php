@@ -14,7 +14,7 @@
             </a>
             <div>
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-white leading-tight">Referral Program</h1>
-                <p class="text-sm text-gray-400 dark:text-gray-500">Earn 100 pts every time your referral withdraws</p>
+                <p class="text-sm text-gray-400 dark:text-gray-500"> </p>
             </div>
         </div>
         <div class="hidden sm:flex items-center gap-2 bg-white dark:bg-gray-900 border border-amber-100 dark:border-amber-900/40 rounded-2xl px-4 py-2.5 shadow-card">
@@ -76,8 +76,8 @@
          REFERRAL LINK CARD
     ═══════════════════════════════════ --}}
     @php
-        $ref = 'https://paidreader.app/signup-publisher?referral=' . Auth::user()->account_id;
-        $msg = urlencode('Earn real cash just by reading articles! Join PaidReader.app and start earning today. ');
+        $ref = 'https://koda.africa/signup-publisher?referral=' . Auth::user()->account_id;
+        $msg = urlencode('Earn real cash just by reading articles! Join koda.africa and start earning today. ');
     @endphp
 
     <div class="bg-gradient-to-br from-brand-600 to-brand-400 rounded-3xl p-6 md:p-8 text-white relative overflow-hidden shadow-xl shadow-brand-500/20 animate-slide-up delay-2">
@@ -91,7 +91,29 @@
                         <i class="fas fa-gift text-xl"></i>
                     </div>
                     <h2 class="text-2xl font-bold leading-tight mb-1">Your Referral Link</h2>
-                    <p class="text-brand-100 text-sm">Share and earn 50 Naira for each successful referral</p>
+  
+                     <div>
+
+                                            @php
+                            $currencyMap = [
+                                'NG' => ['amount' => '50 Naira', 'currency' => 'Naira'],
+                                'GH' => ['amount' => '1 Cedi', 'currency' => 'Cedi'],
+                                'KE' => ['amount' => '5 KSh', 'currency' => 'KSh'],
+                                'ZA' => ['amount' => '5 Rands', 'currency' => 'Rands'],
+                            ];
+
+                            $country = auth()->user()->country ?? 'NG';
+                            $referralReward = $currencyMap[$country] ?? $currencyMap['NG'];
+                        @endphp
+
+                      
+                        <p class="text-brand-100 text-sm leading-relaxed max-w-xs">Refer someone and anytime the person withdraws, you earn {{ $referralReward['amount'] }}.</p>
+                </div>
+
+
+
+
+
                 </div>
                 <div id="referralCopySuccess" class="hidden bg-white/20 border border-white/30 text-white text-xs font-semibold px-3 py-2 rounded-2xl flex items-center gap-2 flex-shrink-0">
                     <i class="fas fa-check-circle"></i> Copied!
@@ -142,7 +164,7 @@
         @foreach([
             ['icon'=>'fas fa-user-plus','color'=>'brand','label'=>'Friend signs up','sub'=>'Using your link'],
             ['icon'=>'fas fa-book-open','color'=>'blue','label'=>'They read & earn','sub'=>'Complete articles'],
-            ['icon'=>'fas fa-coins','color'=>'amber','label'=>'You get 100 pts','sub'=>'On their withdrawal'],
+            ['icon'=>'fas fa-coins','color'=>'amber','label'=>'You get earn cash','sub'=>'On their withdrawal'],
         ] as $step)
             <div class="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-card p-4 text-center">
                 <div class="w-10 h-10 rounded-2xl bg-{{ $step['color'] }}-50 dark:bg-{{ $step['color'] }}-900/20 flex items-center justify-center mx-auto mb-3">
@@ -216,7 +238,7 @@
                         <tr class="bg-gray-50 dark:bg-gray-800/60">
                             <th class="text-left py-3 px-6 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-widest">Member</th>
                             <th class="text-left py-3 px-6 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-widest">Joined</th>
-                            <th class="text-left py-3 px-6 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-widest">Bonus</th>
+                            <!--<th class="text-left py-3 px-6 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-widest">Bonus</th>-->
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-50 dark:divide-gray-800">
@@ -233,12 +255,12 @@
                                 <td class="py-4 px-6">
                                     <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ \Carbon\Carbon::parse($referral->created_at)->format('d M Y') }}</p>
                                     <p class="text-xs text-gray-400 mt-0.5">{{ \Carbon\Carbon::parse($referral->created_at)->format('h:i A') }}</p>
-                                </td>
+                                </td><!--
                                 <td class="py-4 px-6">
                                     <span class="inline-flex items-center gap-1.5 bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 text-xs font-bold px-3 py-1.5 rounded-full border border-brand-100 dark:border-brand-800">
                                         <i class="fas fa-coins text-amber-400 text-[10px]"></i> 100 pts on withdrawal
                                     </span>
-                                </td>
+                                </td> -->
                             </tr>
                         @endforeach
                     </tbody>

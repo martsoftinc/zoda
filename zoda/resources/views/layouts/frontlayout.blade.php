@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="PaidReader.app - The easiest way to make money online by reading articles.">
-    <meta name="keywords" content="make money online, reading articles, earn money, passive income, PaidReader.app">
-    <title>PaidReader.app - Make money online by reading articles</title>
+    <meta name="description" content="Koda.africa - The easiest way to make money online by reading articles.">
+    <meta name="keywords" content="make money online in nigeria, make money online in south africa,make money online in kenya,make money online in south africa,reading articles, earn money, passive income, Koda.africa">
+    <title>Koda.africa - Make money online by reading articles</title>
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="PaidReader.app">
+    <meta name="twitter:site" content="Koda.africa">
     <meta name="twitter:title" content="Earn cash rewards by reading articles">
-    <meta name="twitter:description" content="Join PaidReader.app to earn money by reading articles. It's the easiest way to make passive income online.">
+    <meta name="twitter:description" content="Join Koda.africa to earn money by reading articles. It's the easiest way to make passive income online.">
     <meta name="twitter:image" content="{{ asset('assets/img/banner.png') }}">
 
     <meta property="og:type" content="website">
-    <meta property="og:url" content="paidreader.app">
+    <meta property="og:url" content="Koda.africa">
     <meta property="og:title" content="Earn cash rewards by reading articles">
-    <meta property="og:description" content="Join PaidReader.app to earn money by reading articles. It's the easiest way to make passive income online.">
+    <meta property="og:description" content="Join Koda.africa to earn money by reading articles. It's the easiest way to make passive income online.">
     <meta property="og:image" content="{{ asset('assets/img/banner.png') }}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -207,7 +207,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                     </svg>
                 </div>
-                <span class="font-display font-bold text-lg text-white">PaidReader<span class="text-brand-400">.app</span></span>
+                <span class="font-display font-bold text-lg text-white">Koda<span class="text-brand-400">.africa</span></span>
             </a>
 
             <!-- Desktop Nav -->
@@ -237,7 +237,7 @@
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="hidden md:hidden fixed inset-0 z-50 flex flex-col" style="background-color: #0b1215;">
         <div class="flex justify-between items-center p-6 border-b border-white/10">
-            <span class="font-display font-bold text-lg text-white">PaidReader<span class="text-brand-400">.app</span></span>
+            <span class="font-display font-bold text-lg text-white">Koda<span class="text-brand-400">.africa</span></span>
             <button id="close-menu" class="text-gray-400 hover:text-white p-1">
                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
@@ -267,7 +267,7 @@
             <span class="inline-block bg-brand-500/20 text-brand-400 text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-6 border border-brand-500/30">Start earning today</span>
             <h2 class="font-display text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">Ready to Start Earning?</h2>
             <p class="text-gray-300 text-lg mb-10 max-w-xl mx-auto leading-relaxed">Join over 1 million readers worldwide who are already turning their reading habit into real income every day.</p>
-            <a href="signup-publisher" class="btn-primary inline-block text-white font-bold py-4 px-10 rounded-full text-lg">
+            <a href="login" class="btn-primary inline-block text-white font-bold py-4 px-10 rounded-full text-lg">
                 Sign Up Now — It's Free!
             </a>
         </div>
@@ -285,12 +285,12 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                         </svg>
                     </div>
-                    <span class="font-display font-bold text-base text-white">PaidReader<span class="text-brand-500">.app</span></span>
+                    <span class="font-display font-bold text-base text-white">Koda<span class="text-brand-500">.africa</span></span>
                 </a>
                 <p class="text-gray-600 text-sm">The world's #1 platform for earning real cash by reading articles.</p>
             </div>
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-sm">&copy; 2026 PaidReader.app. All rights reserved.</p>
+                <p class="text-sm">&copy; 2026 Koda.africa. All rights reserved.</p>
                 <div class="flex gap-6">
                     <a href="privacy" class="text-sm hover:text-gray-300 transition-colors duration-200">Privacy Policy</a>
                     <a href="terms" class="text-sm hover:text-gray-300 transition-colors duration-200">Terms of Service</a>

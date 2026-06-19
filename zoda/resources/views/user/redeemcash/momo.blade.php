@@ -14,7 +14,7 @@
          PAGE HEADER
     ═══════════════════════════════════ --}}
     <div class="flex items-center gap-4 animate-slide-up">
-        <a href="/redeem"
+        <a href="/publisher"
            class="w-10 h-10 rounded-2xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 flex items-center justify-center text-gray-500 hover:border-brand-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all shadow-card flex-shrink-0">
             <i class="fas fa-arrow-left text-sm"></i>
         </a>

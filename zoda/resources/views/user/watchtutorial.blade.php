@@ -302,7 +302,7 @@
                                     <i class="fas fa-chevron-down faq-chevron"></i>
                                 </button>
                                 <div class="faq-body">
-                                    <div class="faq-content">Payouts are processed once you reach the minimum withdrawal amount shown in your dashboard. You can request payment via your account's dashboard by clicking the "Redeem" button. Processing typically takes 1–2 business days, please note we dont process payments on weekends.  </div>
+                                    <div class="faq-content">Payouts are processed once you reach the minimum withdrawal amount shown in your dashboard. You can request payment via your account's dashboard by clicking the "Withdraw" button. Processing typically takes 1–2 business days, please note we dont process payments on weekends.  </div>
                                 </div>
                             </div>
 

@@ -16,7 +16,7 @@
     <div class="flex items-center justify-between">
         <div class="flex items-center space-x-3">
             <!-- Back Button -->
-            <a href="/redeem" class="text-gray-600 dark:text-gray-300 hover:text-primary">
+            <a href="/publisher" class="text-gray-600 dark:text-gray-300 hover:text-primary">
                 <i class="fas fa-arrow-left text-xl"></i>
             </a>
             

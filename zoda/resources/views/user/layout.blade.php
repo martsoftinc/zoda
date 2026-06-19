@@ -14,6 +14,9 @@
     <link rel="apple-touch-icon" href="{{ asset('images/icon-192.png') }}">
     <link rel="manifest" href="{{ asset('manifest.json') }}">
 
+
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -228,11 +231,7 @@
                     {{ substr(auth()->user()->name, 0, 2) }}
                 </div>
                 <p class="font-bold text-sm leading-tight">{{ auth()->user()->name }}</p>
-                @if($credit ?? false)
-                    <p class="text-brand-100 text-xs mt-0.5">{{ number_format($credit->credit ?? 0) }} </p>
-                @else
-                    <p class="text-brand-100 text-xs mt-0.5">Welcome back!</p>
-                @endif
+              
             </div>
         </div>
 
@@ -304,7 +303,7 @@
                         <i class="fas fa-bars text-sm"></i>
                     </button>
                     <span class="font-bold text-gray-900 dark:text-white text-lg lg:hidden">
-                        PaidReader<span class="text-brand-500">.app</span>
+                        Koda<span class="text-brand-500">.africa</span>
                     </span>
                 </div>
 
@@ -331,7 +330,7 @@
                         <div class="hidden md:block">
                             <p class="text-sm font-semibold text-gray-900 dark:text-white leading-tight">{{ auth()->user()->name }}</p>
                             @if($credit ?? false)
-                            <p class="text-xs text-brand-600 dark:text-brand-400 font-medium leading-tight">{{ number_format($credit->credit ?? 0) }} pts</p>
+                            <p class="text-xs text-brand-600 dark:text-brand-400 font-medium leading-tight">{{ number_format($credit->credit ?? 0) }}</p>
                             @endif
                         </div>
                     </div>

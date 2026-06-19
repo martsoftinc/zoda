@@ -6,7 +6,7 @@
     <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Privacy Policy</h2>
     <p class="text-gray-600 mb-4"><strong>Effective Date:</strong> 1st July 2025</p>
     <p class="text-gray-600 mb-6">
-      At Readify.Africa, your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information when you use our website and services.
+      At Koda.Africa, your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information when you use our website and services.
     </p>
 
     <h3 class="text-xl font-semibold text-gray-700 mb-2">1. Information We Collect</h3>
@@ -43,7 +43,7 @@
 
     <h3 class="text-xl font-semibold text-gray-700 mb-2">6. Children’s Privacy</h3>
     <p class="text-gray-600 mb-6">
-      Readify.Africa is not intended for users under the age of 18. Accounts identified as belonging to minors will be removed.
+      Koda.Africa is not intended for users under the age of 18. Accounts identified as belonging to minors will be removed.
     </p>
 
     <h3 class="text-xl font-semibold text-gray-700 mb-2">7. Changes to This Policy</h3>
@@ -54,7 +54,7 @@
     <h3 class="text-xl font-semibold text-gray-700 mb-2">8. Contact Us</h3>
     <p class="text-gray-600">
       For questions about this Privacy Policy, contact us at 
-      <a href="mailto:support@readify.africa" class="text-blue-600 hover:underline">support@readify.africa</a>.
+      <a href="mailto:support@Koda.africa" class="text-blue-600 hover:underline">support@Koda.africa</a>.
     </p>
   </div>
 </section>

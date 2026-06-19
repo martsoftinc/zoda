@@ -8,7 +8,7 @@
       <h1 class="text-4xl font-bold mb-2">Terms of Use</h1>
       <p class="text-gray-500">Effective Date: <time datetime="2025-08-21">August 21, 2025</time></p>
       <p class="mt-4 text-lg leading-relaxed">
-        Welcome to <strong>Readify.Africa</strong> (“the Site,” “we,” “our,” or “us”).
+        Welcome to <strong>Koda.Africa</strong> (“the Site,” “we,” “our,” or “us”).
         By accessing or using this website, you agree to comply with and be bound by these Terms of Use.
         If you do not agree, please do not use our services.
       </p>
@@ -70,7 +70,7 @@
     <section id="intellectual-property" class="pt-8 border-t border-gray-200">
       <h2 class="text-2xl font-semibold mb-3">5. Intellectual Property</h2>
       <ul class="list-disc list-inside space-y-2">
-        <li>All content is the property of Readify.Africa or its licensors.</li>
+        <li>All content is the property of Koda.Africa or its licensors.</li>
         <li>Content may not be copied, republished, or redistributed without permission.</li>
       </ul>
     </section>
@@ -102,7 +102,7 @@
     <section id="contact" class="pt-8 border-t border-gray-200">
       <h2 class="text-2xl font-semibold mb-3">9. Contact Us</h2>
       <p>If you have questions, contact:
-        <a href="mailto:support@readify.africa" class="text-blue-600 hover:underline">support@readify.africa</a>.
+        <a href="mailto:support@Koda.africa" class="text-blue-600 hover:underline">support@Koda.africa</a>.
       </p>
     </section>
 

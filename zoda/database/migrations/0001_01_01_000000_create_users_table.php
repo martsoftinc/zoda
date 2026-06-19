@@ -27,10 +27,10 @@ return new class extends Migration
             $table->string('referred_by')->nullable();
             #$table->string('interest1')->nullable();
             #$table->string('interest2')->nullable();
-            #$table->string('interest3')->nullable();
+            $table->string('tutorial')->nullable();
             $table->string('phone')->nullable();
             $table->string('status')->nullable();
-            $table->boolean('tutorial_completed')->default(false);
+           # $table->boolean('tutorial_completed')->default(false);
     
           
             $table->rememberToken();

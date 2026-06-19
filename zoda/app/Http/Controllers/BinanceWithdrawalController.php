@@ -7,6 +7,7 @@ use App\Models\CreditModel; // or Credit if that's your model name
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class BinanceWithdrawalController extends Controller
 {

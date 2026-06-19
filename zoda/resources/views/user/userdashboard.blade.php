@@ -1,7 +1,42 @@
 @extends('user.layout')
 @section('content')
 
+
+
 <main class="px-4 lg:px-6 py-6 space-y-6 max-w-4xl mx-auto">
+
+<div class="relative overflow-hidden bg-slate-900 px-4 py-3 text-white shadow-xl sm:px-6 sm:py-4">
+  <!-- Subtle animated background glow -->
+  <div class="absolute inset-0 bg-gradient-to-r from-amber-500/10 via-emerald-500/10 to-brand-500/10 animate-pulse"></div>
+
+  <div class="relative flex flex-col items-center justify-between gap-3 text-center md:flex-row md:text-left max-w-7xl mx-auto">
+    
+    <!-- Text Content Area -->
+    <div class="flex flex-col sm:flex-row items-center gap-2 md:gap-3">
+      <!-- Animated Badge -->
+      <span class="inline-flex items-center gap-1 rounded-full bg-amber-500/10 px-2.5 py-1 text-xs font-semibold text-amber-400 border border-amber-500/20 animate-bounce sm:animate-none">
+        <span class="h-1.5 w-1.5 rounded-full bg-amber-400 animate-ping"></span>
+        ATTENTION
+      </span>
+      
+      <!-- Main Hook -->
+      <p class="text-sm font-medium tracking-wide text-slate-200">
+        <span class="font-bold text-white">Google AdSense/AdX Arbitrage Bloggers!</span> 
+        Skyrocket your ROI and make <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300 font-extrabold text-base">7x - 20x Returns</span> on your ad spend.
+      </p>
+    </div>
+
+    <!-- Call to Action Button -->
+    <a href="https://ads.koda.africa" target="_blank" class="group relative inline-flex items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 px-5 py-2 text-sm font-bold text-white shadow-lg shadow-emerald-500/20 transition-all duration-200 hover:from-emerald-600 hover:to-teal-600 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-emerald-500/30 w-full sm:w-auto flex-shrink-0">
+      <span>Click Here to Start</span>
+      <!-- Animated arrow that nudges on hover -->
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+      </svg>
+    </a>
+    
+  </div>
+</div>
 
     {{-- ═══════════════════════════════════════
          WELCOME BANNER
@@ -95,10 +130,8 @@
         <div class="flex items-center justify-between mb-4">
             <div>
                 <h2 class="text-lg font-bold text-gray-900 dark:text-white">Available Articles</h2>
-                @if(count($tasks) > 0)
-                    <p class="text-sm text-gray-400 dark:text-gray-500">{{ count($tasks) }} {{ Str::plural('article', count($tasks)) }} ready to read</p>
-                @endif
-            </div>
+                
+            </div> 
             @if(session()->has('open_task'))
                 <a href="{{ route('refreshTaskList') }}"
                    class="flex items-center gap-1.5 text-sm font-semibold text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/30 px-4 py-2 rounded-xl hover:bg-brand-100 dark:hover:bg-brand-900/50 transition-colors">
@@ -122,13 +155,8 @@
                             <i class="fas fa-file-alt text-brand-500 dark:text-brand-400"></i>
                         </div>
                         <div class="flex-1 min-w-0">
-                            <h3 class="font-semibold text-gray-900 dark:text-white text-sm leading-snug truncate">{{ $task->campaign_name }}</h3>
-                            <div class="flex items-center gap-3 mt-1">
-                                <span class="text-xs text-gray-400 dark:text-gray-500 flex items-center gap-1">
-                                    <i class="fas fa-clock text-[10px]"></i> 2–5 mins
-                                </span>
-                                <span class="text-xs font-semibold text-brand-600 dark:text-brand-400">+ Points</span>
-                            </div>
+                            <h3 class="font-semibold text-gray-900 dark:text-white text-sm leading-snug">{{ $task->campaign_name }}</h3>
+                            
                         </div>
                         @if(session()->has('open_task') && session('open_task') != $task->id)
                             <span class="flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-600 font-medium px-3 py-2 bg-gray-50 dark:bg-gray-800 rounded-xl flex-shrink-0">
@@ -172,7 +200,7 @@
                 <div class="rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800">
                     <iframe class="w-full h-48 block"
                             src="https://www.youtube.com/embed/t0NOPs17KgM"
-                            title="PaidReader Tutorial"
+                            title="Koda Tutorial"
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen>
@@ -195,8 +223,20 @@
                     <div class="w-10 h-10 bg-white/20 rounded-2xl flex items-center justify-center mb-3">
                         <i class="fas fa-gift text-lg"></i>
                     </div>
-                    <h3 class="text-lg font-bold leading-tight mb-1">Earn 50 Naira per Referral!</h3>
-                    <p class="text-brand-100 text-sm leading-relaxed max-w-xs">Refer someone and when the person finishers reading 50 articles, you earn 50 Naira.</p>
+                        @php
+                            $currencyMap = [
+                                'NG' => ['amount' => '50 Naira', 'currency' => 'Naira'],
+                                'GH' => ['amount' => '1 Cedi', 'currency' => 'Cedi'],
+                                'KE' => ['amount' => '5 KSh', 'currency' => 'KSh'],
+                                'ZA' => ['amount' => '5 Rands', 'currency' => 'Rands'],
+                            ];
+
+                            $country = auth()->user()->country ?? 'NG';
+                            $referralReward = $currencyMap[$country] ?? $currencyMap['NG'];
+                        @endphp
+
+                        <h3 class="text-lg font-bold leading-tight mb-1">Earn {{ $referralReward['amount'] }} per Referral!</h3>
+                        <p class="text-brand-100 text-sm leading-relaxed max-w-xs">Refer someone and anytime the person withdraws, you earn {{ $referralReward['amount'] }}.</p>
                 </div>
                 <a href="/referrals"
                    class="flex-shrink-0 bg-white text-brand-700 font-bold text-sm px-5 py-3 rounded-2xl hover:bg-brand-50 transition-colors whitespace-nowrap">
@@ -207,11 +247,11 @@
 
         <div class="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 p-5">
             <h3 class="font-bold text-gray-900 dark:text-white mb-1">Your Referral Link</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Earn 100 pts every time your referral withdraws</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4"></p>
 
             <div class="flex gap-2 mb-3">
                 <input type="text" id="refLink"
-                       value="https://paidreader.app/signup-publisher?referral={{ Auth::user()->account_id }}"
+                       value="https://Koda.africa/signup-publisher?referral={{ Auth::user()->account_id }}"
                        readonly
                        class="flex-1 min-w-0 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100 text-xs px-4 py-3 rounded-2xl font-mono focus:outline-none focus:border-brand-400 transition-colors">
                 <button onclick="copyReferralLink()"
@@ -227,8 +267,8 @@
 
             <p class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-3">Share on</p>
             @php
-                $ref = 'https://paidreader.app/signup-publisher?referral=' . Auth::user()->account_id;
-                $msg = urlencode('Earn free cash just by reading articles! Join PaidReader.app and start earning today. ');
+                $ref = 'https://Koda.africa/signup-publisher?referral=' . Auth::user()->account_id;
+                $msg = urlencode('Earn free cash just by reading articles! Join Koda.africa and start earning today. ');
             @endphp
             <div class="grid grid-cols-4 gap-3">
                 <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($ref) }}" target="_blank"

@@ -40,7 +40,7 @@
          PAGE HEADER
     ═══════════════════════════════════ --}}
     <div class="flex items-center gap-4 animate-slide-up">
-        <a href="/redeem"
+        <a href="/publisher"
            class="w-10 h-10 rounded-2xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 flex items-center justify-center text-gray-500 hover:border-brand-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all shadow-card flex-shrink-0">
             <i class="fas fa-arrow-left text-sm"></i>
         </a>
@@ -278,7 +278,7 @@
             {{-- ── Submit button ── --}}
             @if($hasEnough)
                 <button type="submit"
-                        id="submitBtn"
+                        id="submitBtn"3
                         class="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-[#008751] to-emerald-500 text-white font-bold py-4 rounded-2xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-emerald-700/30 text-base">
                     <i class="fas fa-paper-plane text-sm"></i>
                     Withdraw to Bank Account

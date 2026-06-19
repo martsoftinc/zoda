@@ -6,10 +6,11 @@ use App\Models\NigeriaBankWithdrawal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 class NigeriaBankController extends Controller
 {
-    protected const MIN_WITHDRAWAL = 1000;
+    protected const MIN_WITHDRAWAL = 5000;
 
     protected const VALID_BANKS = [
         'access_bank', 'citibank', 'ecobank', 'fidelity_bank', 'first_bank',
@@ -34,7 +35,7 @@ class NigeriaBankController extends Controller
         return redirect()->to('/choose')->with('error', 'This page is only available for users in Nigeria');
     }
     
-    return view("user.redeemcash.Nigeria", compact('credit'));
+    return view("user.redeemcash.nigeria", compact('credit'));
     }
 
     /**

@@ -4,8 +4,8 @@
 @php
     $credit       = DB::table('credit')->where('user_id', auth()->user()->id)->first();
     $userPoints   = $credit->credit ?? 0;
-    $hasEnough    = $userPoints >= 10;
-    $pct          = min(100, ($userPoints / 10) * 100);
+    $hasEnough    = $userPoints >= 30;
+    $pct          = min(100, ($userPoints / 30) * 100);
 
     $banks = [
         'absa'                  => 'ABSA Bank',
@@ -38,7 +38,7 @@
          PAGE HEADER
     ═══════════════════════════════════ --}}
     <div class="flex items-center gap-4 animate-slide-up">
-        <a href="/redeem"
+        <a href="/publisher"
            class="w-10 h-10 rounded-2xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 flex items-center justify-center text-gray-500 hover:border-brand-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all shadow-card flex-shrink-0">
             <i class="fas fa-arrow-left text-sm"></i>
         </a>
@@ -102,13 +102,13 @@
             {{-- Progress to minimum --}}
             <div class="space-y-1.5">
                 <div class="flex items-center justify-between text-xs text-green-100">
-                    <span>Minimum cashout: <strong class="text-white">R 10.00</strong></span>
+                    <span>Minimum cashout: <strong class="text-white">R 30.00</strong></span>
                     @if($hasEnough)
                         <span class="flex items-center gap-1 font-semibold text-white">
                             <i class="fas fa-check-circle text-xs"></i> Ready to withdraw
                         </span>
                     @else
-                        <span class="text-green-200">Need R {{ number_format(max(0, 10 - (float)$userPoints), 2) }} more</span>
+                        <span class="text-green-200">Need R {{ number_format(max(0, 30 - (float)$userPoints), 2) }} more</span>
                     @endif
                 </div>
                 <div class="h-2 bg-white/20 rounded-full overflow-hidden">
@@ -289,7 +289,7 @@
                 </div>
                 <div class="flex items-center justify-between pl-1">
                     <p class="text-xs text-gray-400 dark:text-gray-600">
-                        Min: <strong>R 10.00</strong> &nbsp;·&nbsp; Max: <strong>R {{ number_format((float) $userPoints, 2) }}</strong>
+                        Min: <strong>R 30.00</strong> &nbsp;·&nbsp; Max: <strong>R {{ number_format((float) $userPoints, 2) }}</strong>
                     </p>
                     <p id="amount-error" class="text-xs text-red-500 hidden font-medium">
                         <i class="fas fa-exclamation-circle mr-1"></i><span id="amount-error-text">Exceeds your balance</span>
@@ -304,7 +304,7 @@
                     <div>
                         <p class="text-sm font-semibold text-red-700 dark:text-red-300">Insufficient balance</p>
                         <p class="text-xs text-red-600 dark:text-red-400 mt-0.5">
-                            You need at least R 10.00 to withdraw. Your current balance is
+                            You need at least R 30.00 to withdraw. Your current balance is
                             <strong>R {{ number_format((float) $userPoints, 2) }}</strong>.
                             Keep reading articles to earn more!
                         </p>
@@ -349,7 +349,7 @@
                         class="w-full flex items-center justify-center gap-3 bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-600 font-bold py-4 rounded-2xl cursor-not-allowed text-base border border-gray-200 dark:border-gray-700"
                         disabled>
                     <i class="fas fa-lock text-sm"></i>
-                    Insufficient Balance (Need R 10+)
+                    Insufficient Balance (Need R 30+)
                 </button>
             @endif
 
@@ -411,7 +411,7 @@
     amountInput?.addEventListener('input', function() {
         const val        = parseFloat(this.value);
         const isOver     = val > MAX_BALANCE;
-        const isUnderMin = val < 10 && this.value !== '';
+        const isUnderMin = val < 30 && this.value !== '';
 
         if (isOver) {
             amountErrorTxt.textContent = 'Exceeds your balance';
@@ -419,7 +419,7 @@
             this.classList.add('border-red-400');
             this.classList.remove('border-gray-100');
         } else if (isUnderMin) {
-            amountErrorTxt.textContent = 'Minimum withdrawal is R 10.00';
+            amountErrorTxt.textContent = 'Minimum withdrawal is R 30.00';
             amountError.classList.remove('hidden');
             this.classList.add('border-red-400');
             this.classList.remove('border-gray-100');

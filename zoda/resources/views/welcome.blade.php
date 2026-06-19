@@ -23,19 +23,19 @@
                 {{-- Badge --}}
                 <div class="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/25 text-brand-400 text-xs font-semibold tracking-widest uppercase px-4 py-2 rounded-full mb-8 animate-fade-up">
                     <span class="w-1.5 h-1.5 bg-brand-400 rounded-full animate-pulse-slow"></span>
-                    #1 Platform Worldwide
+                    #1 Make Money Online Website In Africa
                 </div>
 
                 {{-- Headline --}}
                 <h1 class="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white leading-[1.06] mb-6 animate-fade-up" style="animation-delay:0.1s">
                     #1 Website<br>
-                    <span class="text-gradient">To Earn From</span><br>
-                    Reading
+                    <span class="text-gradient">To Make Money Online</span><br>
+                    In Africa
                 </h1>
 
                 {{-- Sub --}}
                 <p class="text-gray-400 text-lg md:text-xl leading-relaxed mb-10 max-w-md mx-auto md:mx-0 animate-fade-up" style="animation-delay:0.2s">
-                    Sign up, read articles and make real money — it's that simple. Join over <strong class="text-white font-semibold">1,000,000+</strong> people worldwide already earning daily.
+                    Sign up, read articles and make real money — it's that simple. Join over <strong class="text-white font-semibold">1,000,000+</strong> people in Africa earning daily.
                 </p>
 
                 {{-- CTA Buttons --}}
@@ -48,10 +48,10 @@
                             <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#fff"/>
                         </svg>
                         Continue with Google
-                    </a>
-                    <a href="signup-publisher" class="flex items-center justify-center gap-2 text-white font-semibold py-4 px-8 rounded-full text-base border border-white/20 hover:border-brand-400/50 hover:bg-white/5 transition-all duration-200">
+                    </a><!--
+                    <a href="#" class="flex items-center justify-center gap-2 text-white font-semibold py-4 px-8 rounded-full text-base border border-white/20 hover:border-brand-400/50 hover:bg-white/5 transition-all duration-200">
                         Register with Email →
-                    </a>
+                    </a> -->
                 </div>
 
                 {{-- Trust signals --}}
@@ -138,7 +138,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                     </svg>
                 </div>
-                <p class="font-display text-4xl font-extrabold text-white mb-1.5">50,000+</p>
+                <p class="font-display text-4xl font-extrabold text-white mb-1.5"> 1,000+</p>
                 <p class="text-gray-400 text-sm font-medium">Articles Published Daily</p>
             </div>
 
@@ -171,7 +171,7 @@
                 </div>
                 <div class="w-7 h-7 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center mb-4 shadow-md shadow-brand-600/30">1</div>
                 <h3 class="font-display text-xl font-bold text-gray-900 mb-3">Sign Up Free</h3>
-                <p class="text-gray-500 leading-relaxed text-sm">Create your free account in under 60 seconds. No credit card needed. Available in 150+ countries worldwide.</p>
+                <p class="text-gray-500 leading-relaxed text-sm">Create your free account in under 60 seconds.</p>
             </div>
 
             {{-- Step 2 --}}
@@ -195,7 +195,7 @@
                 </div>
                 <div class="w-7 h-7 rounded-full bg-amber-500 text-white text-xs font-bold flex items-center justify-center mb-4 shadow-md shadow-amber-500/30">3</div>
                 <h3 class="font-display text-xl font-bold text-gray-900 mb-3">Withdraw Cash</h3>
-                <p class="text-gray-500 leading-relaxed text-sm">Paste the code to earn points. Redeem points for cash via PayPal, bank transfer, or crypto. No limit on reads!</p>
+                <p class="text-gray-500 leading-relaxed text-sm">Paste the code to earn cash. Withdraw through mobile money or bank tranfer.</p>
             </div>
         </div>
     </div>
@@ -220,17 +220,17 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/>
                             </svg>
                         </div>
-                        <h3 class="font-display text-2xl font-bold text-white mb-3">Built for Everyone</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">We remove the barriers — high data costs, lack of incentives, limited access — and make reading rewarding for everyone.</p>
+                        <h3 class="font-display text-2xl font-bold text-white mb-3">Built for Africa</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Enjoy reading? why dont you make money from your spare time.</p>
                         <div class="grid grid-cols-2 gap-3">
                             <div class="bg-white/5 rounded-xl p-3 border border-white/10">
-                                <p class="text-brand-400 font-bold text-lg">PayPal</p>
-                                <p class="text-gray-500 text-xs">Instant transfer</p>
+                                <p class="text-brand-400 font-bold text-lg">Mobile Money</p>
+                                <p class="text-gray-500 text-xs">Ghana & Kenya</p>
                             </div>
                             <div class="bg-white/5 rounded-xl p-3 border border-white/10">
-                                <p class="text-brand-400 font-bold text-lg">Crypto</p>
-                                <p class="text-gray-500 text-xs">USDT / BTC</p>
-                            </div>
+                                <p class="text-brand-400 font-bold text-lg">Bank Transfer</p>
+                                <p class="text-gray-500 text-xs">Nigeria & South Africa</p>
+                            </div><!--
                             <div class="bg-white/5 rounded-xl p-3 border border-white/10">
                                 <p class="text-brand-400 font-bold text-lg">Bank</p>
                                 <p class="text-gray-500 text-xs">Wire transfer</p>
@@ -238,7 +238,7 @@
                             <div class="bg-white/5 rounded-xl p-3 border border-white/10">
                                 <p class="text-brand-400 font-bold text-lg">Gift Cards</p>
                                 <p class="text-gray-500 text-xs">150+ brands</p>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -250,11 +250,11 @@
                 <h2 class="font-display text-3xl md:text-4xl font-extrabold text-gray-900 mb-6 leading-tight">Our Story</h2>
                 <p class="text-gray-600 leading-relaxed mb-5 text-lg">
                     We are passionate about reading and learning, and we believe that access to information is a key driver of personal and economic development. This belief inspired us to create a platform that encourages more people around the world to read regularly.
-                </p>
+                </p><!--
                 <p class="text-gray-500 leading-relaxed mb-8">
                     In many communities, reading is not yet a daily habit — often because of limited access, high data costs, or a lack of incentives. Our mission is to promote a culture of reading globally by combining education with real financial rewards. By allowing users to earn points and redeem them for cash, gift cards, or crypto as they read, we make learning more accessible, engaging, and sustainable for everyone.
-                </p>
-                <div class="flex flex-wrap gap-3">
+                </p> -->
+                <!-- <div class="flex flex-wrap gap-3">
                     <div class="flex items-center gap-2 bg-brand-50 border border-brand-200 rounded-full px-4 py-2">
                         <div class="w-2 h-2 rounded-full bg-brand-500"></div>
                         <span class="text-brand-700 text-sm font-semibold">Instant Payouts</span>
@@ -271,7 +271,7 @@
                         <div class="w-2 h-2 rounded-full bg-purple-500"></div>
                         <span class="text-purple-700 text-sm font-semibold">No Limits</span>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -298,12 +298,12 @@
                     <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.487 7.09l6.572-.955L10 0l2.941 6.135 6.572.955-4.758 4.655 1.123 6.545z"/></svg>
                     @endfor
                 </div>
-                <p class="text-gray-600 mb-5 leading-relaxed text-sm">"I use the platform every day on my commute. The articles are short and informative, and the points I earn help me get mobile data without spending extra money."</p>
+                <p class="text-gray-600 mb-5 leading-relaxed text-sm">“I started using Koda Africa during my free time after work, and I was surprised at how simple it was to earn by just reading articles. The platform is easy to use, payments are reliable, and I’ve already referred a few friends in Accra. It’s a great opportunity for students and young professionals looking for extra income online.”</p>
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full bg-brand-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">AB</div>
                     <div>
-                        <p class="font-semibold text-gray-900 text-sm">Aisha B.</p>
-                        <p class="text-gray-400 text-xs">London, UK</p>
+                        <p class="font-semibold text-gray-900 text-sm">Daniel Osei</p>
+                        <p class="text-gray-400 text-xs">Kumasi, Ghana</p>
                     </div>
                     <span class="ml-auto text-brand-600 bg-brand-50 text-xs font-semibold px-3 py-1 rounded-full border border-brand-100">Verified</span>
                 </div>
@@ -316,12 +316,12 @@
                     <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.487 7.09l6.572-.955L10 0l2.941 6.135 6.572.955-4.758 4.655 1.123 6.545z"/></svg>
                     @endfor
                 </div>
-                <p class="text-gray-600 mb-5 leading-relaxed text-sm">"The topics are relevant and easy to understand. Earning points for reading makes it easier for me to stay consistent with my daily reading habit."</p>
+                <p class="text-gray-600 mb-5 leading-relaxed text-sm">“What I like most about Koda Africa is that it rewards users for staying informed. I read entertainment and business articles daily, and the earnings add up over time. The withdrawal process has been smooth for me, and the experience has been better than many similar platforms I’ve tried.”</p>
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">TM</div>
                     <div>
-                        <p class="font-semibold text-gray-900 text-sm">Thomas M.</p>
-                        <p class="text-gray-400 text-xs">Toronto, Canada</p>
+                        <p class="font-semibold text-gray-900 text-sm">Chinedu Okafor</p>
+                        <p class="text-gray-400 text-xs">Lagos, Nigeria</p>
                     </div>
                     <span class="ml-auto text-brand-600 bg-brand-50 text-xs font-semibold px-3 py-1 rounded-full border border-brand-100">Verified</span>
                 </div>
@@ -334,12 +334,12 @@
                     <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.487 7.09l6.572-.955L10 0l2.941 6.135 6.572.955-4.758 4.655 1.123 6.545z"/></svg>
                     @endfor
                 </div>
-                <p class="text-gray-600 mb-5 leading-relaxed text-sm">"The platform encourages me to read more often. I enjoy the variety of articles, and redeeming points for data is very convenient and fast."</p>
+                <p class="text-gray-600 mb-5 leading-relaxed text-sm">“I joined Koda Africa a few months ago and it has become part of my daily routine. The articles are interesting, the dashboard is straightforward, and I enjoy earning rewards while learning new things. It’s refreshing to see an African platform creating opportunities for digital earners.”</p>
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">JT</div>
                     <div>
-                        <p class="font-semibold text-gray-900 text-sm">James T.</p>
-                        <p class="text-gray-400 text-xs">New York, USA</p>
+                        <p class="font-semibold text-gray-900 text-sm">Thabo Mokoenap </p>
+                        <p class="text-gray-400 text-xs">Johannesburg, South Africa</p>
                     </div>
                     <span class="ml-auto text-brand-600 bg-brand-50 text-xs font-semibold px-3 py-1 rounded-full border border-brand-100">Verified</span>
                 </div>
@@ -352,12 +352,12 @@
                     <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.487 7.09l6.572-.955L10 0l2.941 6.135 6.572.955-4.758 4.655 1.123 6.545z"/></svg>
                     @endfor
                 </div>
-                <p class="text-gray-600 mb-5 leading-relaxed text-sm">"It has become part of my daily routine. Reading, learning, and earning data at the same time is a great combination I didn't expect."</p>
+                <p class="text-gray-600 mb-5 leading-relaxed text-sm">“As a university student, Koda Africa has helped me earn small but consistent income online without needing special skills. I only need my phone and internet connection to start reading and earning. I would definitely recommend it to anyone looking for a flexible online side hustle.”</p>
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full bg-pink-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">WN</div>
                     <div>
-                        <p class="font-semibold text-gray-900 text-sm">Wendy N.</p>
-                        <p class="text-gray-400 text-xs">Sydney, Australia</p>
+                        <p class="font-semibold text-gray-900 text-sm">Brian Otieno</p>
+                        <p class="text-gray-400 text-xs">Nairobi, Kenya</p>
                     </div>
                     <span class="ml-auto text-brand-600 bg-brand-50 text-xs font-semibold px-3 py-1 rounded-full border border-brand-100">Verified</span>
                 </div>
@@ -386,23 +386,16 @@
                     <span class="w-6 h-6 bg-brand-100 text-brand-700 rounded-full text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">Q</span>
                     How much cash can I earn?
                 </h3>
-                <p class="text-gray-600 leading-relaxed text-sm pl-9">Your earnings are based on the points you accumulate. The more points you earn, the higher your potential rewards. You can gain more points by reading articles and inviting others — you receive 100 bonus points for every referral who makes a withdrawal.</p>
+                <p class="text-gray-600 leading-relaxed text-sm pl-9">Your earnings are based on the number of articles you read.  The more you read the more you earn</p>
             </div>
 
-            <div class="faq-item bg-white rounded-2xl shadow-sm p-6 border border-gray-100" data-animate style="transition-delay:0.1s">
-                <h3 class="font-display text-lg font-bold text-gray-900 mb-2 flex items-start gap-3">
-                    <span class="w-6 h-6 bg-brand-100 text-brand-700 rounded-full text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">Q</span>
-                    How do I convert points to cash?
-                </h3>
-                <p class="text-gray-600 leading-relaxed text-sm pl-9">Once you're logged in and have enough points, click on the "Redeem" link. You can withdraw via PayPal, bank transfer, crypto (USDT/BTC), or redeem for gift cards. We support payouts in 50+ countries.</p>
-            </div>
 
             <div class="faq-item bg-white rounded-2xl shadow-sm p-6 border border-gray-100" data-animate style="transition-delay:0.15s">
                 <h3 class="font-display text-lg font-bold text-gray-900 mb-2 flex items-start gap-3">
                     <span class="w-6 h-6 bg-brand-100 text-brand-700 rounded-full text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">Q</span>
                     How long does it take to receive my rewards?
                 </h3>
-                <p class="text-gray-600 leading-relaxed text-sm pl-9">Internet bundles and airtime are delivered instantly. Cash payments are processed within 24–48 hours after your redemption request is submitted.</p>
+                <p class="text-gray-600 leading-relaxed text-sm pl-9">Payment are sent within 24-48 hours Monday to Friday. We dont process payment on weekends and holidays</p>
             </div>
 
             <div class="faq-item bg-white rounded-2xl shadow-sm p-6 border border-gray-100" data-animate style="transition-delay:0.2s">
@@ -410,7 +403,7 @@
                     <span class="w-6 h-6 bg-brand-100 text-brand-700 rounded-full text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">Q</span>
                     How do I start earning?
                 </h3>
-                <p class="text-gray-600 leading-relaxed text-sm pl-9">Sign up for a free account, browse our library of articles, and start reading. Generate a verification code at the end of each article to confirm completion and earn your points — redeemable for real cash.</p>
+                <p class="text-gray-600 leading-relaxed text-sm pl-9">Sign up for a free account, browse our library of articles, and start reading. Generate a verification code at the end of each article to confirm completion and earn your real cash.</p>
             </div>
 
             <div class="faq-item bg-white rounded-2xl shadow-sm p-6 border border-gray-100" data-animate style="transition-delay:0.25s">
@@ -418,7 +411,7 @@
                     <span class="w-6 h-6 bg-brand-100 text-brand-700 rounded-full text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">Q</span>
                     Who can join?
                 </h3>
-                <p class="text-gray-600 leading-relaxed text-sm pl-9">Anyone with an internet connection and a desire to read! PaidReader.app is available in 150+ countries. If you can access the internet, you can start earning.</p>
+                <p class="text-gray-600 leading-relaxed text-sm pl-9">Anyone with an internet connection and a desire to read! Koda.africa is available in Ghana, Nigeria, Kenya and South Africa. If you can access the internet, you can start earning.</p>
             </div>
 
             <div class="faq-item bg-white rounded-2xl shadow-sm p-6 border border-gray-100" data-animate style="transition-delay:0.3s">
@@ -426,16 +419,10 @@
                     <span class="w-6 h-6 bg-brand-100 text-brand-700 rounded-full text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">Q</span>
                     What payment methods are supported?
                 </h3>
-                <p class="text-gray-600 leading-relaxed text-sm pl-9">We support PayPal, direct bank transfers (SWIFT/ACH/SEPA), cryptocurrency (USDT, BTC, ETH), and gift cards from 150+ brands including Amazon, Google Play, and iTunes.</p>
+                <p class="text-gray-600 leading-relaxed text-sm pl-9">We support mobile money(Ghana & Kenya) and bank transfer(South africa & Nigeria)</p>
             </div>
 
-            <div class="faq-item bg-white rounded-2xl shadow-sm p-6 border border-gray-100" data-animate style="transition-delay:0.35s">
-                <h3 class="font-display text-lg font-bold text-gray-900 mb-2 flex items-start gap-3">
-                    <span class="w-6 h-6 bg-brand-100 text-brand-700 rounded-full text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">Q</span>
-                    What data bundles are available?
-                </h3>
-                <p class="text-gray-600 leading-relaxed text-sm pl-9">We offer 500MB, 1GB, 2GB, 5GB, 10GB, and 50GB bundles. Your accumulated points determine which bundles you can redeem.</p>
-            </div>
+
 
         </div>
     </div>

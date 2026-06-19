@@ -7,6 +7,8 @@ use App\Models\CreditModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+Use App\Models\Referral;
 
 class MomoWithdrawalController extends Controller
 {
@@ -55,6 +57,7 @@ class MomoWithdrawalController extends Controller
  
         // ── 3. Wrap everything in a transaction ──────────────────
         DB::transaction(function () use ($user, $validated, $amount, $credit) {
+
  
             // 3a. Deduct from credit table
             DB::table('credit')
@@ -70,7 +73,42 @@ class MomoWithdrawalController extends Controller
                 'amount'  => $amount,
                 'status'  => 'pending',
             ]);
+
+            
         });
+
+            // Check if user is referred
+            if ($user->referred_by) {
+                $referrer = User::where('account_id', $user->referred_by)->first();
+                if ($referrer) {
+
+                    // Define credit amount based on referrer's country
+                    $creditMap = [
+                        'NG' => 50,
+                        'GH' => 1,
+                        'KE' => 5,
+                        'ZA' => 5,
+                    ];
+
+                    $creditAmount = $creditMap[$referrer->country] ?? 100;
+
+                    // Credit amount to the referrer
+                    $referrerCredit = CreditModel::where('user_id', $referrer->id)->first();
+                    if ($referrerCredit) {
+                        $referrerCredit->credit += $creditAmount;
+                        $referrerCredit->save();
+                    }
+
+                    // Update referral earnings in the referrals table
+                    $referral = Referral::where('referred_user_id', $user->id)->first();
+                    if ($referral) {
+                        $referral->referral_earnings += $creditAmount;
+                        $referral->save();
+                    }
+                }
+            }
+
+
  
         return redirect()->route('payments')
             ->with('success', 'Withdrawal request of GHS ' . number_format($amount, 2) . ' submitted successfully! It will be processed within 24–48 hours.');

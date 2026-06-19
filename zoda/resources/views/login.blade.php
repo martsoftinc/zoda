@@ -133,8 +133,8 @@
                 <div class="w-14 h-14 rounded-2xl bg-brand-500/15 border border-brand-500/25 flex items-center justify-center mx-auto mb-4">
                     <i class="fas fa-right-to-bracket text-brand-400 text-xl"></i>
                 </div>
-                <h1 class="text-2xl font-extrabold text-white mb-1.5">Welcome back</h1>
-                <p class="text-gray-400 text-sm leading-relaxed">Sign in to your Koda.africa account to continue earning.</p>
+                <h1 class="text-2xl font-extrabold text-white mb-1.5">Welcome</h1>
+                <p class="text-gray-400 text-sm leading-relaxed">Sign in / Register to your Koda.africa account to continue earning.</p>
             </div>
 
             <!-- Session messages -->

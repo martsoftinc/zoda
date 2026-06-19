@@ -21,6 +21,7 @@ use App\Models\PaymentRequests;
 use Intervention\Image\Facades\Image;
 use App\Models\PaymentSettingsModal;
 use Stevebauman\Location\Facades\Location;
+use Illuminate\Support\Facades\Http;
 
 use Illuminate\Support\Facades\Log;
 
@@ -71,7 +72,7 @@ $tasks = campaignModel::query()
         WHERE clicks.campaign_id = campaigns.campaign_id 
           AND DATE(clicks.created_at) = ?
     ), 0) < daily_budget', [$today])
-    ->where('status', 'Approved')
+    ->where('status', 'Active')
     ->orderByDesc('cpc')
     ->inRandomOrder()
     ->limit(5)
@@ -217,10 +218,30 @@ foreach ($tasks as $task) {
 
 
     // Verify code and earn rewards
-public function verifyCode(Request $request){
+        public function verifyCode(Request $request){
                 $request->validate([
                 'verificationCode' => 'required|string',
+                'cf-turnstile-response' => 'required'
                 ]);
+
+            
+                
+                $response = Http::asForm()->post(
+    'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+    [
+        'secret' => env('TURNSTILE_SECRET_KEY'),
+        'response' => $request->input('cf-turnstile-response'),
+        'remoteip' => $request->ip(),
+    ]
+);
+
+$result = $response->json();
+
+if (!($result['success'] ?? false)) {
+    return redirect()
+        ->route('publisher')
+        ->with('error', 'Cloudflare verification failed. Please try again.');
+}
             
             $user = Auth::user();
 
@@ -283,13 +304,13 @@ public function verifyCode(Request $request){
                         #$advertiserDeduction = 0.00;
                         
                             if ($user->country === 'GH') { // Ghana
-                                $userearnings = 0.5;
+                                $userearnings = 0.1;
                             } elseif ($user->country === 'ZA') { // South Africa
-                                $userearnings = 0.10;
+                                $userearnings = 0.15;
                             } elseif ($user->country === 'NG') { // Nigeria
                                 $userearnings = 5;
                             } elseif ($user->country === 'KE') { // Kenya
-                                $userearnings = 0.5;
+                                $userearnings = 1;
                             } 
 
                            
@@ -520,6 +541,8 @@ public function PaymentMethodSettings(Request $request)
 public function Profile(){
     return view('user.profile');
 }
+
+
 
 
 
