@@ -418,7 +418,7 @@
                         <!-- Video -->
                         <div class="video-wrap mb-5 shadow-xl shadow-black/40 ring-1 ring-white/10">
                             <iframe
-                                src="https://www.youtube.com/embed/t0NOPs17KgM?rel=0&modestbranding=1"
+                                src="https://www.youtube.com/embed/4gqi4anuWGA?rel=0&modestbranding=1"
                                 title="Koda.africa Tutorial"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen>

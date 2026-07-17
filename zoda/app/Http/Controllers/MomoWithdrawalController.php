@@ -85,12 +85,12 @@ class MomoWithdrawalController extends Controller
                     // Define credit amount based on referrer's country
                     $creditMap = [
                         'NG' => 50,
-                        'GH' => 1,
+                        'GH' => 0.5,
                         'KE' => 5,
                         'ZA' => 5,
                     ];
 
-                    $creditAmount = $creditMap[$referrer->country] ?? 100;
+                    $creditAmount = $creditMap[$referrer->country] ?? 0;
 
                     // Credit amount to the referrer
                     $referrerCredit = CreditModel::where('user_id', $referrer->id)->first();

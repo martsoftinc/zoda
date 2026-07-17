@@ -304,11 +304,11 @@ if (!($result['success'] ?? false)) {
                         #$advertiserDeduction = 0.00;
                         
                             if ($user->country === 'GH') { // Ghana
-                                $userearnings = 0.1;
+                                $userearnings = 0.05;
                             } elseif ($user->country === 'ZA') { // South Africa
-                                $userearnings = 0.15;
+                                $userearnings = 0.20;
                             } elseif ($user->country === 'NG') { // Nigeria
-                                $userearnings = 5;
+                                $userearnings = 10;
                             } elseif ($user->country === 'KE') { // Kenya
                                 $userearnings = 1;
                             } 
@@ -410,7 +410,7 @@ if (!($result['success'] ?? false)) {
 
                         session()->forget('open_task');
                         
-                        return redirect()->route('publisher')->with('success', 'Verification successful!, you have earned ' . $userearnings . ' points.');
+                        return redirect()->route('publisher')->with('success', 'Verification successful!, you have earned ' . $userearnings );
                     } catch (\Exception $e) {
                         // If something goes wrong, rollback the transaction
                         //DB::rollBack(); 

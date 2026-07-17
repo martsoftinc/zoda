@@ -199,7 +199,7 @@
             <div class="px-5 pb-5">
                 <div class="rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800">
                     <iframe class="w-full h-48 block"
-                            src="https://www.youtube.com/embed/t0NOPs17KgM"
+                            src="https://www.youtube.com/embed/4gqi4anuWGA?rel=0&modestbranding=1"
                             title="Koda Tutorial"
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

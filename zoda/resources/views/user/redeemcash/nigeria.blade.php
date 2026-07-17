@@ -4,8 +4,8 @@
 @php
     $credit       = DB::table('credit')->where('user_id', auth()->user()->id)->first();
     $userPoints   = $credit->credit ?? 0;
-    $hasEnough    = $userPoints >= 1000;
-    $pct          = min(100, ($userPoints / 1000) * 100);
+    $hasEnough    = $userPoints >= 5000;
+    $pct          = min(100, ($userPoints / 5000) * 100);
 
     $banks = [
         'access_bank'       => 'Access Bank',
@@ -102,13 +102,13 @@
             {{-- Progress to minimum --}}
             <div class="space-y-1.5">
                 <div class="flex items-center justify-between text-xs text-emerald-100">
-                    <span>Minimum cashout: <strong class="text-white">₦1,000</strong></span>
+                    <span>Minimum cashout: <strong class="text-white">₦5,000</strong></span>
                     @if($hasEnough)
                         <span class="flex items-center gap-1 font-semibold text-white">
                             <i class="fas fa-check-circle text-xs"></i> Ready to withdraw
                         </span>
                     @else
-                        <span class="text-emerald-200">Need ₦{{ number_format(max(0, 1000 - (float)$userPoints), 2) }} more</span>
+                        <span class="text-emerald-200">Need ₦{{ number_format(max(0, 5000 - (float)$userPoints), 2) }} more</span>
                     @endif
                 </div>
                 <div class="h-2 bg-white/20 rounded-full overflow-hidden">
@@ -229,7 +229,7 @@
                 </div>
                 <div class="flex items-center justify-between pl-1">
                     <p class="text-xs text-gray-400 dark:text-gray-600">
-                        Min: <strong>₦1,000</strong> &nbsp;·&nbsp; Max: <strong>₦{{ number_format((float) $userPoints, 2) }}</strong>
+                        Min: <strong>₦5,000</strong> &nbsp;·&nbsp; Max: <strong>₦{{ number_format((float) $userPoints, 2) }}</strong>
                     </p>
                     <p id="amount-error" class="text-xs text-red-500 hidden font-medium">
                         <i class="fas fa-exclamation-circle mr-1"></i><span id="amount-error-text">Exceeds your balance</span>
@@ -244,7 +244,7 @@
                     <div>
                         <p class="text-sm font-semibold text-red-700 dark:text-red-300">Insufficient balance</p>
                         <p class="text-xs text-red-600 dark:text-red-400 mt-0.5">
-                            You need at least ₦1,000 to withdraw. Your current balance is
+                            You need at least ₦5,000 to withdraw. Your current balance is
                             <strong>₦{{ number_format((float) $userPoints, 2) }}</strong>.
                             Keep reading articles to earn more!
                         </p>
@@ -288,7 +288,7 @@
                         class="w-full flex items-center justify-center gap-3 bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-600 font-bold py-4 rounded-2xl cursor-not-allowed text-base border border-gray-200 dark:border-gray-700"
                         disabled>
                     <i class="fas fa-lock text-sm"></i>
-                    Insufficient Balance (Need ₦1,000+)
+                    Insufficient Balance (Need ₦5,000+)
                 </button>
             @endif
 
@@ -333,7 +333,7 @@
     amountInput?.addEventListener('input', function() {
         const val        = parseFloat(this.value);
         const isOver     = val > MAX_BALANCE;
-        const isUnderMin = val < 1000 && this.value !== '';
+        const isUnderMin = val < 5000 && this.value !== '';
 
         if (isOver) {
             amountErrorTxt.textContent = 'Exceeds your balance';
@@ -341,7 +341,7 @@
             this.classList.add('border-red-400');
             this.classList.remove('border-gray-100');
         } else if (isUnderMin) {
-            amountErrorTxt.textContent = 'Minimum withdrawal is ₦1,000';
+            amountErrorTxt.textContent = 'Minimum withdrawal is ₦5,000';
             amountError.classList.remove('hidden');
             this.classList.add('border-red-400');
             this.classList.remove('border-gray-100');

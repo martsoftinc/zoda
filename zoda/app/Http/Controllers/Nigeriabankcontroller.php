@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\NigeriaBankWithdrawal;
+use App\Models\Nigeriabankwithdrawal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -78,7 +78,7 @@ class NigeriaBankController extends Controller
             'account_name.required'   => 'Please enter your account name.',
             'amount.required'         => 'Please enter a withdrawal amount.',
             'amount.numeric'          => 'Amount must be a valid number.',
-            'amount.min'              => 'Minimum withdrawal amount is ₦1,000.',
+            'amount.min'              => 'Minimum withdrawal amount is ₦5,000.',
             'terms.accepted'          => 'You must accept the terms before withdrawing.',
         ]);
 
@@ -93,13 +93,13 @@ class NigeriaBankController extends Controller
                 ->decrement('credit', $amount);
 
             // 3b. Store the withdrawal record
-            NigeriaBankWithdrawal::create([
-                'user_id'        => $user->id,
-                'bank_name'      => $validated['bank_name'],
-                'account_number' => $validated['account_number'],
-                'account_name'   => $validated['account_name'],
-                'amount'         => $amount,
-                'status'         => 'pending',
+                Nigeriabankwithdrawal::create([
+                    'user_id'        => $user->id,
+                    'bank_name'      => $validated['bank_name'],
+                    'account_number' => $validated['account_number'],
+                    'account_name'   => $validated['account_name'],
+                    'amount'         => $amount,
+                    'status'         => 'pending',
             ]);
         });
 
