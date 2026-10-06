@@ -22,16 +22,29 @@ use Intervention\Image\Facades\Image;
 use App\Models\PaymentSettingsModal;
 use Stevebauman\Location\Facades\Location;
 use Illuminate\Support\Facades\Http;
+use App\Services\LiveUsersService;
+use App\Services\PaymentFlashService;
 
 use Illuminate\Support\Facades\Log;
+
+
+
+
+
+
+
 
 class publisherController extends Controller
 {
     //
     public function publisherDashboard()
     {
-       
-          $userId = auth()->id();
+
+        $country = auth()->user()->country ?? null;
+        $paymentFlashes = PaymentFlashService::generateMany(auth()->user()->country ?? null, 8);
+
+        $liveUsers = LiveUsersService::current();
+        $userId = auth()->id();
 
         //Campaign Serving Logic
 $countryCode = request()->header('CF-IPCountry');
@@ -144,7 +157,7 @@ foreach ($tasks as $task) {
 
 
         
-        return view('user.userdashboard',compact('tasks','credit','paid','bonus'));
+        return view('user.userdashboard',compact('tasks','credit','paid','bonus','liveUsers','paymentFlashes'));
     }
 
 

@@ -20,26 +20,56 @@ use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
-    
+
+
+
+private function ipConflict(Request $request, User $user): bool
+{
+    return DB::table('sessions')
+        ->where('ip_address', $request->ip())
+        ->where('user_id', '!=', $user->id)
+        ->whereNotNull('user_id')
+        ->where('last_activity', '>=', now()->subMinutes(30)->timestamp)
+        ->exists();
+}
 
 public function handleGoogleCallback(Request $request)
 {
     try {
         $googleUser = Socialite::driver('google')->user();
-        
-        // Check if user already exists by email
         $existingUser = User::where('email', $googleUser->email)->first();
-        
-            if ($existingUser) {
-                $this->invalidateOtherSessions($existingUser);
-                \Auth::login($existingUser, true);
 
-                // Store the NEW session ID on the user record
-                $existingUser->session_id = session()->getId();
-                $existingUser->save();
-
-                return redirect()->route('publisher');
+        if ($existingUser) {
+            // Block BEFORE logging in or touching sessions
+            if ($this->ipConflict($request, $existingUser)) {
+                return redirect()->route('login')->with('loginError',
+                    'This IP address is already in use by another account, due to security risk only one unique IP address is permitted per user. If you are on shared Wi-Fi, switch to mobile data to change your IP. If you are on mobile, turn off your data and then turn it back on to change your IP.');
             }
+
+            $this->invalidateOtherSessions($existingUser);
+            Auth::login($existingUser, true);
+            $request->session()->regenerate();
+            $existingUser->session_id = session()->getId();
+            $existingUser->save();
+
+            return redirect()->route('publisher');
+        }
+
+
+         // ---- New user: check the IP BEFORE creating the account ----
+        // No user ID exists yet, so check for ANY active session on this IP
+        $ipInUse = DB::table('sessions')
+            ->where('ip_address', $request->ip())
+            ->whereNotNull('user_id')
+            ->where('last_activity', '>=', now()->subMinutes(30)->timestamp)
+            ->exists();
+
+        if ($ipInUse) {
+            return redirect()->route('login')->with('loginError',
+                'This IP address is already in use by another account...');
+        }
+
+
         
         // Create new user
         $role = 'publisher';
@@ -88,10 +118,10 @@ public function handleGoogleCallback(Request $request)
             'details' => 'Complete your payment settings',
         ]);
         
-        // Invalidate other sessions then log in
         $this->invalidateOtherSessions($user);
         Auth::login($user, true);
-        $user->session_id = session()->getId();
+        $request->session()->regenerate();
+        $user->session_id = session()->getId(); // you had this commented out
         $user->save();
         
         return redirect()->route('profile.complete')->with('success', 'Welcome! Please complete your profile.');
@@ -111,6 +141,7 @@ public function handleGoogleCallback(Request $request)
     // `php artisan session:table` — we use that column for a direct delete.
     DB::table('sessions')
         ->where('user_id', $user->id)
+        #->where('id', '!=', $currentSessionId)
         ->delete();
 }
     

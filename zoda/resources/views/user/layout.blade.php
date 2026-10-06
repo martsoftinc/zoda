@@ -202,10 +202,11 @@
 <body class="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-200 min-h-screen">
 
     {{-- ── Install PWA button ── --}}
+    <!--
     <button id="installPwaBtn" onclick="installPWA()"
         class="hidden fixed top-4 right-4 z-50 bg-gradient-to-r from-brand-500 to-gold text-white text-sm font-semibold px-4 py-2 rounded-xl shadow-lg">
         <i class="fas fa-download mr-2"></i>Install App
-    </button>
+    </button> -->
 
     {{-- ═══════════════ SIDEBAR ═══════════════ --}}
     <div id="sidebar-overlay" onclick="closeSidebar()"></div>
@@ -248,9 +249,10 @@
             <a href="/payments" class="nav-item {{ request()->is('payments') ? 'active' : '' }}">
                 <span class="icon"><i class="fas fa-clock"></i></span> History
             </a>
+            
             <a href="/referrals" class="nav-item {{ request()->is('referrals') ? 'active' : '' }}">
                 <span class="icon"><i class="fas fa-users"></i></span> Referrals
-            </a>
+            </a> 
 
             <p class="text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-widest px-3 mb-2 mt-4">Earnings</p>
 
@@ -323,6 +325,7 @@
                     <div class="hidden sm:block w-px h-6 bg-gray-200 dark:bg-gray-700"></div>
 
                     {{-- User chip --}}
+                    <!--
                     <div class="flex items-center gap-2.5">
                         <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-brand-500/25">
                             {{ substr(auth()->user()->name, 0, 2) }}
@@ -333,7 +336,7 @@
                             <p class="text-xs text-brand-600 dark:text-brand-400 font-medium leading-tight">{{ number_format($credit->credit ?? 0) }}</p>
                             @endif
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </header>
@@ -378,7 +381,7 @@
     </nav>
 
     {{-- Logout form --}}
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">@csrf</form>
+    <form id="logout-form" action="/logout" method="POST" class="hidden">@csrf</form>
 
     <script>
         // ── Dark mode ──

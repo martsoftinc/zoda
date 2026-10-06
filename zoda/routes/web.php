@@ -19,6 +19,21 @@ use App\Http\Controllers\SouthAfricaBankController;
 use Laravel\Socialite\Facades\Socialite;
 
 
+
+
+
+
+
+
+Route::get('/live-users', function () {
+    return response()->json([
+        'count' => \App\Services\LiveUsersService::current(),
+    ]);
+})->middleware('auth');
+
+
+
+
 Route::get('auth/google', function () {
     return Socialite::driver('google')->redirect();
 });
@@ -148,7 +163,7 @@ Route::post('/job', [publisherController::class, 'verifyCode'])->name('verifyCod
 Route::get('/profile', [publisherController::class, 'Profile']);
 Route::get('/statistics', [publisherController::class, 'Stats']);
 Route::get('/linkexpired', [publisherController::class, 'linkexpired'])->name('linkexpired');
-Route::get('/logout', [publisherController::class, 'logout'])->name('logout');
+Route::post('/logout', [publisherController::class, 'logout'])->name('logout');
 Route::post('/profile/send-code', [publisherController::class, 'sendCode'])->name('profile.sendCode');
 Route::post('/profile/verify-code', [publisherController::class, 'verifyPasswordCode'])->name('profile.verifyCode');
 Route::post('/profile/update-password', [publisherController::class, 'updatePassword'])->name('profile.updatePassword');

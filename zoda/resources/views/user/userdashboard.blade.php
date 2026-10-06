@@ -21,8 +21,7 @@
       
       <!-- Main Hook -->
       <p class="text-sm font-medium tracking-wide text-slate-200">
-        <span class="font-bold text-white">Google AdSense/AdX Arbitrage Bloggers!</span> 
-        Skyrocket your ROI and make <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300 font-extrabold text-base">7x - 20x Returns</span> on your ad spend.
+        <span class="font-bold text-white">Get Real Human Traffic to Your Website.</span> 
       </p>
     </div>
 
@@ -34,6 +33,20 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
       </svg>
     </a>
+
+        <!-- 🔴 LIVE USERS ONLINE COUNTER -->
+        <div class="flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 px-3 py-1.5">
+        <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+        </span>
+        <span class="text-xs font-semibold text-emerald-400">
+            <span id="liveUsersCount" 
+                data-seed="{{ $liveUsers }}"
+                class="font-mono tabular-nums">{{ number_format($liveUsers) }}</span> users online now
+        </span>
+        </div>
+
     
   </div>
 </div>
@@ -55,6 +68,109 @@
             </a>
         </div>
     </section>
+
+
+
+    {{-- ═══════════════════════════════════════
+     PAYMENT FLASH — social proof
+═══════════════════════════════════════ --}}
+{{-- ═══════════════════════════════════════
+     PAYMENT FLASH — top-right sliding toast
+═══════════════════════════════════════ --}}
+@if(!empty($paymentFlashes) && count($paymentFlashes) > 0)
+<div id="paymentToastStack"
+     class="fixed top-4 right-4 z-[9999] w-[calc(100vw-2rem)] sm:w-80 pointer-events-none">
+    
+    <div id="paymentToast"
+         class="pointer-events-auto translate-x-[120%] opacity-0 transition-all duration-500 ease-out">
+        <div class="flex items-center gap-3 bg-white dark:bg-gray-900 border border-emerald-100 dark:border-emerald-900/40 rounded-2xl px-4 py-3 shadow-xl shadow-emerald-500/10">
+
+            {{-- Avatar --}}
+            <div id="pfAvatar"
+                 class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center flex-shrink-0 text-white font-bold text-sm">
+                A
+            </div>
+
+            {{-- Content --}}
+            <div class="flex-1 min-w-0">
+                <p id="pfMessage"
+                   class="text-sm font-semibold text-gray-900 dark:text-white truncate">
+                    Loading…
+                </p>
+                <p class="text-xs text-gray-400 dark:text-gray-500 flex items-center gap-1 mt-0.5">
+                    <i class="fas fa-check-circle text-emerald-500 text-[10px]"></i>
+                    Verified payout · just now
+                </p>
+            </div>
+
+            {{-- Pulsing dot --}}
+            <span class="relative flex h-2.5 w-2.5 flex-shrink-0">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+            </span>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+    (function () {
+        const messages = @json($paymentFlashes);
+        if (!messages || messages.length === 0) return;
+
+        const toast   = document.getElementById('paymentToast');
+        const msgEl   = document.getElementById('pfMessage');
+        const avatar  = document.getElementById('pfAvatar');
+
+        if (!toast || !msgEl || !avatar) return;
+
+        let index = 0;
+
+        // Slide IN
+        function show() {
+            const item = messages[index];
+
+            msgEl.textContent   = item.message;
+            avatar.textContent  = item.name.charAt(0).toUpperCase();
+
+            toast.classList.remove('translate-x-[120%]', 'opacity-0');
+            toast.classList.add('translate-x-0', 'opacity-100');
+        }
+
+        // Slide OUT
+        function hide() {
+            toast.classList.remove('translate-x-0', 'opacity-100');
+            toast.classList.add('translate-x-[120%]', 'opacity-0');
+        }
+
+        // Cycle: show → wait → hide → wait → next
+        function cycle() {
+            index = (index + 1) % messages.length;
+            show();
+
+            const visibleFor = 4000 + Math.random() * 2000;   // 4-6s visible
+            setTimeout(() => {
+                hide();
+                const hiddenFor = 2500 + Math.random() * 2500; // 2.5-5s hidden
+                setTimeout(cycle, hiddenFor + 600);            // +600 for slide-out to finish
+            }, visibleFor);
+        }
+
+        // First appearance after a short delay
+        setTimeout(() => {
+            show();
+            const visibleFor = 4500 + Math.random() * 2000;
+            setTimeout(() => {
+                hide();
+                const hiddenFor = 2500 + Math.random() * 2500;
+                setTimeout(cycle, hiddenFor + 600);
+            }, visibleFor);
+        }, 2000);
+    })();
+</script>
+@endif
+
 
     {{-- ═══════════════════════════════════════
          STATS GRID
@@ -128,8 +244,16 @@
     ═══════════════════════════════════════ --}}
     <section class="animate-slide-up delay-2">
         <div class="flex items-center justify-between mb-4">
-            <div>
-                <h2 class="text-lg font-bold text-gray-900 dark:text-white">Available Articles</h2>
+            <div> 
+                <p class="mt-1 text-s text-gray-500 dark:text-gray-400">
+                    Attention!! For the best experience, please use 
+                    <span class="font-medium text-gray-700 dark:text-gray-300">Google Chrome browser</span> 
+                    or 
+                    <span class="font-medium text-gray-700 dark:text-gray-300">Apple Safari</span>.
+                    <span class="text-amber-600 dark:text-amber-400">Opera Mini is not fully supported.</span>
+                </p><br>
+                <h2 class="text-lg font-bold text-gray-900 dark:text-white">Sponsored Articles</h2>  
+                
                 
             </div> 
             @if(session()->has('open_task'))
@@ -213,6 +337,7 @@
     {{-- ═══════════════════════════════════════
          REFERRAL SECTION
     ═══════════════════════════════════════ --}}
+    
     <section class="animate-slide-up delay-4 space-y-4">
 
         <div class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-brand-600 via-brand-500 to-brand-400 p-6 text-white">
@@ -225,9 +350,9 @@
                     </div>
                         @php
                             $currencyMap = [
-                                'NG' => ['amount' => '50 Naira', 'currency' => 'Naira'],
-                                'GH' => ['amount' => '1 Cedi', 'currency' => 'Cedi'],
-                                'KE' => ['amount' => '5 KSh', 'currency' => 'KSh'],
+                                'NG' => ['amount' => '150 Naira', 'currency' => 'Naira'],
+                                'GH' => ['amount' => '3 Cedi', 'currency' => 'Cedi'],
+                                'KE' => ['amount' => '30 KSh', 'currency' => 'KSh'],
                                 'ZA' => ['amount' => '5 Rands', 'currency' => 'Rands'],
                             ];
 
@@ -236,7 +361,7 @@
                         @endphp
 
                         <h3 class="text-lg font-bold leading-tight mb-1">Earn {{ $referralReward['amount'] }} per Referral!</h3>
-                        <p class="text-brand-100 text-sm leading-relaxed max-w-xs">Refer someone and anytime the person withdraws, you earn {{ $referralReward['amount'] }}.</p>
+                        <p class="text-brand-100 text-sm leading-relaxed max-w-xs">Refer someone and everytime the person withdraws, you earn {{ $referralReward['amount'] }}.</p>
                 </div>
                 <a href="/referrals"
                    class="flex-shrink-0 bg-white text-brand-700 font-bold text-sm px-5 py-3 rounded-2xl hover:bg-brand-50 transition-colors whitespace-nowrap">
@@ -311,7 +436,7 @@
             @endif
         </div>
 
-    </section>
+    </section> 
 
     <div class="h-4"></div>
 </main>
@@ -341,6 +466,34 @@
             if (window.showToast) showToast('Please copy the link manually.', 'error');
         });
     }
+
+
+        (function liveUsersCounter() {
+        const el = document.getElementById('liveUsersCount');
+        if (!el) return;
+
+        let current = parseInt(el.dataset.seed, 10) || 0;
+        const format = (n) => n.toLocaleString('en-US');
+        el.textContent = format(current);
+
+        async function poll() {
+            try {
+                const res = await fetch('/live-users', { 
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' } 
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (typeof data.count === 'number') {
+                        current = data.count;
+                        el.textContent = format(current);
+                    }
+                }
+            } catch (_) { /* ignore */ }
+
+            setTimeout(poll, 6000 + Math.random() * 4000);
+        }
+        setTimeout(poll, 5000);
+    })();
 </script>
 
 @endsection

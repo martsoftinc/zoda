@@ -1,454 +1,202 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Complete Profile — Koda.africa</title>
+@extends('layouts.frontlayout')
 
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+@section('title', 'Complete Profile — Koda.africa')
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
+@push('styles')
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(18px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .fade-up   { animation: fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) both; }
+    .d1 { animation-delay: .07s }
+    .d2 { animation-delay: .15s }
 
-        body {
-            background: #0b1215;
-            background-image:
-                radial-gradient(ellipse 70% 50% at 20% 30%, rgba(34,197,94,0.10) 0%, transparent 60%),
-                radial-gradient(ellipse 50% 40% at 80% 70%, rgba(34,197,94,0.06) 0%, transparent 55%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem 1rem;
-            position: relative;
-            overflow-x: hidden;
-        }
+    .field-input {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .field-input:focus-within {
+      border-color: #1f6ff8;
+      box-shadow: 0 0 0 4px rgba(31,111,248,0.10);
+    }
+    .field-input .input-icon {
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      color: #9ca3af;
+    }
+    .field-input input,
+    .field-input select {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #1a1a1a;
+      font-size: 0.9rem;
+      font-family: inherit;
+      padding: 12px 14px 12px 0;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .field-input select { cursor: pointer; padding-right: 12px; }
+    .field-input input::placeholder { color: #9ca3af; }
 
-        .dot-grid {
-            position: fixed;
-            inset: 0;
-            background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
-            background-size: 28px 28px;
-            pointer-events: none;
-            z-index: 0;
-        }
+    .alert-danger-light {
+      background: #fde8e8;
+      border: 1px solid #fca5a5;
+      color: #991b1b;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 13.5px;
+    }
+  </style>
+@endpush
 
-        .wrap {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 420px;
-            margin: 0 auto;
-        }
+@section('content')
+  <section class="flex justify-center">
+    <div class="w-full max-w-screen-xl px-4 md:px-20 lg:px-32 pt-12 md:pt-20 pb-24 md:pb-32">
 
-        /* ── Brand ── */
-        .brand {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 1.75rem;
-            animation: fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) both;
-        }
+      <div class="w-full max-w-md mx-auto">
 
-        .logo-link {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            background: #22c55e;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 20px rgba(34,197,94,0.35);
-            flex-shrink: 0;
-        }
-
-        .logo-text {
-            font-weight: 800;
-            font-size: 1.25rem;
-            color: #fff;
-        }
-
-        .logo-text span { color: #4ade80; }
-
-        /* ── Card ── */
-        .card {
-            background: #111d20;
-            border: 1px solid rgba(255,255,255,0.10);
-            border-radius: 24px;
-            padding: 2rem 2.25rem;
-            box-shadow: 0 24px 64px rgba(0,0,0,0.5);
-            animation: fadeUp 0.5s 0.07s cubic-bezier(0.22,1,0.36,1) both,
-                       borderShimmer 4s ease-in-out infinite;
-        }
-
-        /* ── Card header ── */
-        .card-header {
-            text-align: center;
-            margin-bottom: 1.75rem;
-        }
-
-        .header-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 16px;
-            background: rgba(34,197,94,0.12);
-            border: 1px solid rgba(34,197,94,0.22);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-        }
-
-        .card-header h1 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 6px;
-        }
-
-        .card-header p {
-            font-size: 0.875rem;
-            color: #6b7280;
-            line-height: 1.5;
-        }
-
-        /* ── Alerts ── */
-        .alert-danger {
-            background: rgba(239,68,68,0.10);
-            border: 1px solid rgba(239,68,68,0.25);
-            color: #fca5a5;
-            border-radius: 12px;
-            padding: 12px 16px;
-            font-size: 13.5px;
-            margin-bottom: 1.25rem;
-        }
-
-        .alert-danger ul {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        /* ── Form fields ── */
-        .field { margin-bottom: 1rem; }
-
-        .field-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 1rem;
-        }
-
-        .field-row .field { margin-bottom: 0; }
-
-        label {
-            display: block;
-            font-size: 0.8125rem;
-            font-weight: 600;
-            color: #9ca3af;
-            margin-bottom: 6px;
-            letter-spacing: 0.01em;
-        }
-
-        label .req { color: #f87171; }
-
-        .input-wrap {
-            display: flex;
-            align-items: center;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.10);
-            border-radius: 14px;
-            overflow: hidden;
-            transition: border-color 0.2s;
-        }
-
-        .input-wrap:focus-within {
-            border-color: rgba(34,197,94,0.45);
-        }
-
-        .input-icon {
-            padding: 0 12px;
-            display: flex;
-            align-items: center;
-            flex-shrink: 0;
-            color: #4b5563;
-        }
-
-        .input-wrap input,
-        .input-wrap select {
-            flex: 1;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: #e5e7eb;
-            font-size: 0.9rem;
-            font-family: inherit;
-            padding: 11px 14px 11px 0;
-            appearance: none;
-            -webkit-appearance: none;
-        }
-
-        .input-wrap select option {
-            background: #111d20;
-            color: #e5e7eb;
-        }
-
-        .input-wrap select { cursor: pointer; padding-right: 12px; }
-
-        .input-wrap input::placeholder { color: #4b5563; }
-
-        /* ── Checkbox ── */
-        .check-wrap {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin: 1rem 0;
-        }
-
-        .check-wrap input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            margin-top: 2px;
-            accent-color: #22c55e;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-
-        .check-label {
-            font-size: 0.8125rem;
-            color: #6b7280;
-            line-height: 1.5;
-        }
-
-        .check-label a {
-            color: #4ade80;
-            text-decoration: none;
-        }
-
-        /* ── Submit button ── */
-        .btn-submit {
-            width: 100%;
-            background: #22c55e;
-            color: #fff;
-            font-family: inherit;
-            font-weight: 700;
-            font-size: 0.9375rem;
-            border: none;
-            border-radius: 14px;
-            padding: 13px;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-            box-shadow: 0 4px 20px rgba(34,197,94,0.30);
-            margin-top: 0.25rem;
-        }
-
-        .btn-submit:hover {
-            background: #16a34a;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 28px rgba(34,197,94,0.40);
-        }
-
-        .btn-submit:active { transform: translateY(0); }
-
-        /* ── Footer ── */
-        .footer {
-            text-align: center;
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.12);
-            margin-top: 1.25rem;
-        }
-
-        /* ── Animations ── */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(18px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes borderShimmer {
-            0%   { border-color: rgba(255,255,255,0.10); }
-            50%  { border-color: rgba(34,197,94,0.22); }
-            100% { border-color: rgba(255,255,255,0.10); }
-        }
-
-        @media (max-width: 480px) {
-            .card { padding: 1.5rem 1.25rem; }
-            .field-row { grid-template-columns: 1fr; }
-        }
-    </style>
-</head>
-
-<body>
-    <div class="dot-grid"></div>
-
-    <div class="wrap">
-
-        <!-- Brand -->
-        <div class="brand">
-            <a href="/" class="logo-link">
-                <div class="logo-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/>
-                        <line x1="2" y1="12" x2="22" y2="12"/>
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                    </svg>
-                </div>
-                <span class="logo-text">Koda<span>.africa</span></span>
-            </a>
+        <!-- Header -->
+        <div class="text-center mb-10 fade-up">
+          <div class="w-14 h-14 rounded-2xl bg-[#ffe45e] flex items-center justify-center mx-auto mb-5">
+            <i class="fas fa-user-pen text-[#1a1a1a] text-xl"></i>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-extrabold text-[#1a1a1a] leading-tight">Complete your profile</h1>
+          <p class="text-lg text-[#3c3c43] mt-4">Just a few details to personalise your experience.</p>
         </div>
 
         <!-- Card -->
-        <div class="card">
+        <div class="fade-up d1 rounded-[20px] bg-white p-7 sm:p-9 shadow-sm border border-gray-100">
 
-            <div class="card-header">
-                <div class="header-icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                        <polyline points="14 2 14 8 20 8"/>
-                        <line x1="16" y1="13" x2="8" y2="13"/>
-                        <line x1="16" y1="17" x2="8" y2="17"/>
-                        <polyline points="10 9 9 9 8 9"/>
-                    </svg>
-                </div>
-                <h1>Complete Your Profile</h1>
-                <p>Just a few details to personalise your experience and get you earning.</p>
+          <!-- Validation errors -->
+          @if ($errors->any())
+            <div class="alert-danger-light mb-5">
+              <ul class="flex flex-col gap-1">
+                @foreach ($errors->all() as $error)
+                  <li class="flex items-start gap-2">
+                    <i class="fas fa-circle-exclamation text-red-600 mt-1 flex-shrink-0 text-xs"></i>
+                    <span>{{ $error }}</span>
+                  </li>
+                @endforeach
+              </ul>
+            </div>
+          @endif
+
+          <!-- Form -->
+          <form action="/profile/complete" method="POST" class="space-y-5">
+            @csrf
+
+            <!-- Full Name -->
+            <div>
+              <label for="name" class="block text-sm font-semibold text-[#1a1a1a] mb-2">
+                Full Name <span class="text-red-500">*</span>
+              </label>
+              <div class="field-input">
+                <span class="input-icon"><i class="fas fa-user"></i></span>
+                <input type="text" id="name" name="name" placeholder="e.g. Amara Mensah" value="{{ old('name') }}" required>
+              </div>
             </div>
 
-            <!-- Validation errors (Laravel Blade) -->
-            {{-- @if ($errors->any())
-                <div class="alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+            <!-- Gender + Age Group -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="gender" class="block text-sm font-semibold text-[#1a1a1a] mb-2">
+                  Gender <span class="text-red-500">*</span>
+                </label>
+                <div class="field-input">
+                  <span class="input-icon"><i class="fas fa-venus-mars"></i></span>
+                  <select id="gender" name="gender" required>
+                    <option value="" disabled {{ old('gender') ? '' : 'selected' }}>Select</option>
+                    <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
+                    <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
+                  </select>
                 </div>
-            @endif --}}
+              </div>
 
-            <!-- Form -->
-            <form action="/profile/complete" method="POST">
-                 @csrf 
-
-                <!-- Full Name -->
-                <div class="field">
-                    <label for="name">Full Name <span class="req">*</span></label>
-                    <div class="input-wrap">
-                        <span class="input-icon">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                                <circle cx="12" cy="7" r="4"/>
-                            </svg>
-                        </span>
-                        <input type="text" id="name" name="name" placeholder="e.g. Amara Mensah" required>
-                    </div>
+              <div>
+                <label for="age_group" class="block text-sm font-semibold text-[#1a1a1a] mb-2">
+                  Age Group <span class="text-red-500">*</span>
+                </label>
+                <div class="field-input">
+                  <span class="input-icon"><i class="fas fa-calendar"></i></span>
+                  <select id="age_group" name="age_group" required>
+                    <option value="" disabled {{ old('age_group') ? '' : 'selected' }}>Select</option>
+                    <option value="18-25" {{ old('age_group') == '18-25' ? 'selected' : '' }}>18–25</option>
+                    <option value="26-35" {{ old('age_group') == '26-35' ? 'selected' : '' }}>26–35</option>
+                    <option value="36-45" {{ old('age_group') == '36-45' ? 'selected' : '' }}>36–45</option>
+                    <option value="46-55" {{ old('age_group') == '46-55' ? 'selected' : '' }}>46–55</option>
+                    <option value="56+" {{ old('age_group') == '56+' ? 'selected' : '' }}>56+</option>
+                  </select>
                 </div>
+              </div>
+            </div>
 
-                <!-- Gender + Age Group -->
-                <div class="field-row">
-                    <div class="field">
-                        <label for="gender">Gender <span class="req">*</span></label>
-                        <div class="input-wrap">
-                            <span class="input-icon">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="8" r="4"/>
-                                    <path d="M6 20v-2a6 6 0 0 1 12 0v2"/>
-                                </svg>
-                            </span>
-                            <select id="gender" name="gender" required>
-                                <option value="" disabled selected>Select</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                            </select>
-                        </div>
-                    </div>
+            <!-- Country -->
+            <div>
+              <label for="country" class="block text-sm font-semibold text-[#1a1a1a] mb-2">
+                Country <span class="text-red-500">*</span>
+              </label>
+              <div class="field-input">
+                <span class="input-icon"><i class="fas fa-globe"></i></span>
+                <select id="country" name="country" required>
+                  <option value="" disabled {{ old('country') ? '' : 'selected' }}>Select your country</option>
+                  <option value="GH" {{ old('country') == 'GH' ? 'selected' : '' }}>Ghana</option>
+                  <option value="NG" {{ old('country') == 'NG' ? 'selected' : '' }}>Nigeria</option>
+                  <option value="KE" {{ old('country') == 'KE' ? 'selected' : '' }}>Kenya</option>
+                  <option value="ZA" {{ old('country') == 'ZA' ? 'selected' : '' }}>South Africa</option>
+                </select>
+              </div>
+            </div>
 
-                    <div class="field">
-                        <label for="age_group">Age Group <span class="req">*</span></label>
-                        <div class="input-wrap">
-                            <span class="input-icon">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                                    <line x1="16" y1="2" x2="16" y2="6"/>
-                                    <line x1="8" y1="2" x2="8" y2="6"/>
-                                    <line x1="3" y1="10" x2="21" y2="10"/>
-                                </svg>
-                            </span>
-                            <select id="age_group" name="age_group" required>
-                                <option value="" disabled selected>Select</option>
-                                <option value="18-25">18–25</option>
-                                <option value="26-35">26–35</option>
-                                <option value="36-45">36–45</option>
-                                <option value="46-55">46–55</option>
-                                <option value="56+">56+</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
+            <!-- WhatsApp / Telegram -->
+            <div>
+              <label for="phone" class="block text-sm font-semibold text-[#1a1a1a] mb-2">
+                WhatsApp / Telegram
+              </label>
+              <div class="field-input">
+                <span class="input-icon"><i class="fas fa-comment-dots"></i></span>
+                <input type="text" id="phone" name="phone" placeholder="+233 XX XXX XXXX" value="{{ old('phone') }}">
+              </div>
+            </div>
 
-                <!-- Country -->
-                <div class="field">
-                    <label for="country">Country <span class="req">*</span></label>
-                    <div class="input-wrap">
-                        <span class="input-icon">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"/>
-                                <line x1="2" y1="12" x2="22" y2="12"/>
-                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                            </svg>
-                        </span>
-                        <select id="country" name="country" required>
-                            <option value="" disabled selected>Select your country</option>
-                            <option value="GH">Ghana</option>
-                            <option value="NG">Nigeria</option>
-                            <option value="KE">Kenya</option>
-                            <option value="ZA">South Africa</option>
-                        </select>
-                    </div>
-                </div>
+            <!-- Hidden referral -->
+            <input type="hidden" name="referral_code" value="{{ request('referral') }}">
 
-                <!-- WhatsApp / Telegram -->
-                <div class="field">
-                    <label for="phone">WhatsApp / Telegram</label>
-                    <div class="input-wrap">
-                        <span class="input-icon">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                            </svg>
-                        </span>
-                        <input type="text" id="phone" name="phone" placeholder="+233 XX XXX XXXX">
-                    </div>
-                </div>
+            <!-- Terms -->
+            <div class="flex items-start gap-3 pt-1">
+              <input type="checkbox" id="iAgree" name="iAgree" required
+                     class="w-4 h-4 mt-1 rounded border-gray-300 text-[#1f6ff8] focus:ring-[#1f6ff8] cursor-pointer flex-shrink-0">
+              <label class="text-sm text-[#3c3c43] leading-relaxed cursor-pointer" for="iAgree">
+                I agree to the
+                <a href="/terms" target="_blank" class="text-[#1f6ff8] font-semibold hover:underline">terms and conditions</a>
+              </label>
+            </div>
 
-                <!-- Hidden referral -->
-                <input type="hidden" name="referral_code" value="">
-                <!-- In Blade: value="{{ request('referral') }}" -->
+            <!-- Submit -->
+            <button type="submit" class="btn-blue w-full font-semibold text-base py-4 rounded-full transition-colors mt-2">
+              Sign Up
+            </button>
+          </form>
 
-                <!-- Terms -->
-                <div class="check-wrap">
-                    <input type="checkbox" id="iAgree" name="iAgree" required>
-                    <label class="check-label" for="iAgree">
-                        I agree to the <a href="/terms" target="_blank">terms and conditions</a>
-                    </label>
-                </div>
-
-                <button type="submit" class="btn-submit">Sign Up</button>
-            </form>
-
-            <p class="footer">&copy; 2026 Koda.africa</p>
         </div>
 
+        <!-- Footer note -->
+        <p class="text-center text-sm text-[#3c3c43] mt-8 fade-up d2">
+          We never share your information with third parties.
+        </p>
+
+      </div>
+
     </div>
-</body>
-</html>
+  </section>
+@endsection
